@@ -62,26 +62,3 @@ To set this project directory as your active workspace for Antigravity, run:
 ```
 
 Or select this folder inside your IDE workspace panel.
-
----
-
-## 🚀 For Developers
-
-**To clone and work on this project:**
-```bash
-git clone https://github.com/manavi1111/isharawebsite.git
-cd isharawebsite
-```
-
-Then open `index.html` in your browser to see the website.
-
-**To contribute:**
-1. Create a new branch: `git checkout -b feature/your-feature-name`
-2. Make your changes
-3. Commit: `git commit -m "Your commit message"`
-4. Push: `git push origin feature/your-feature-name`
-5. Create a Pull Request on GitHub
-
----
-
-**Made with ✨ for the discerning woman who carries heritage with effortless poise.**
