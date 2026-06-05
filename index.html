@@ -4,32 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ISHARA | Weave Your Story</title>
-  <meta name="description" content="Ishara — handcrafted ethnic apparel weaving ancient Indian stories into every thread. Discover hand-stitched suits, silk sarees and artisan block prints.">
-  <meta name="keywords" content="ISHARA, ethnic wear, Indian traditional, hand-stitched, mulmul, silk, cotton, sustainable fashion, artisan, karigar">
+  <meta name="description" content="Ishara — six handcrafted collections weaving florals, pastels, sunshine, art wear, winged prints & premium silhouettes into every thread.">
+  <meta name="keywords" content="ISHARA, Gulnaar, Noor-e-Pastels, Sunshine Palette, Art Wear, Winged Collection, Premium Affair, ethnic wear, Indian traditional, handcrafted">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Great+Vibes&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            forest:   '#1B3A2D',
+            forest:        '#1B3A2D',
             'forest-deep': '#0F2318',
-            'forest-light': '#2D5A42',
-            gold:     '#C9A84C',
-            'gold-light': '#E5C97A',
-            'gold-pale':  '#F5E8C0',
-            maroon:   '#6B1A2A',
+            gold:          '#C9A84C',
+            'gold-light':  '#E5C97A',
+            'gold-pale':   '#F5E8C0',
+            maroon:        '#6B1A2A',
             'maroon-deep': '#4A0F1C',
-            cream:    '#F8F3EA',
-            'cream-warm': '#F0E8D5',
-            charcoal: '#1C1A18',
+            cream:         '#F8F3EA',
+            'cream-warm':  '#F0E8D5',
+            charcoal:      '#1C1A18',
+            /* Collection accent colors */
+            gulnaar:       '#C84B6E',   /* rose-pink floral */
+            noor:          '#A89BC5',   /* soft lavender pastel */
+            sunshine:      '#D4A017',   /* warm yellow */
+            artwear:       '#3B3028',   /* rich dark taupe */
+            winged:        '#3A6B7A',   /* peacock teal */
+            premium:       '#5C3D1E',   /* deep walnut brown */
           },
           fontFamily: {
             serif:   ['"Cormorant Garamond"', 'serif'],
@@ -41,1165 +44,1156 @@
       }
     }
   </script>
-
-  <!-- React CDN -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    /* ─── Scrollbar ─── */
+    /* ── Base ── */
+    *   { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: #F8F3EA; }
     ::-webkit-scrollbar-thumb { background: #1B3A2D; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #C9A84C; }
     ::selection { background: #C9A84C33; color: #1B3A2D; }
 
-    /* ─── Base ─── */
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    /* ─── Grain texture overlay ─── */
+    /* ── Grain overlay ── */
     .grain::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.028;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
+      content:""; position:fixed; inset:0; pointer-events:none;
+      z-index:999; opacity:0.025;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat:repeat;
     }
 
-    /* ─── Logo SVG colours ─── */
-    .logo-svg .lotus { fill: #C9A84C; }
-    .logo-svg .knot  { fill: #C9A84C; }
-    .logo-svg .hindi { fill: #1B3A2D; }
-    .logo-svg .latin { fill: #C9A84C; }
+    /* ── Animations ── */
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+    @keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+    @keyframes collectionReveal { from{opacity:0;transform:translateY(30px) scale(0.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes shimmerBorder { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
-    /* ─── Animations ─── */
-    @keyframes fadeUp   { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
-    @keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    @keyframes shimmer  {
-      0%   { background-position: -200% center; }
-      100% { background-position:  200% center; }
-    }
-    @keyframes marquee  { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-    @keyframes spin-slow{ from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-    @keyframes revealX  { from{width:100%} to{width:0} }
-    @keyframes borderPulse { 0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)} 50%{box-shadow:0 0 0 6px rgba(201,168,76,0.18)} }
-
-    .fade-up   { animation: fadeUp  0.75s cubic-bezier(.16,1,.3,1) both; }
-    .fade-in   { animation: fadeIn  0.6s ease both; }
-    .float-anim{ animation: float   5s ease-in-out infinite; }
-    .marquee-inner { animation: marquee 30s linear infinite; display:inline-flex; white-space:nowrap; }
+    .fade-up    { animation: fadeUp  0.8s cubic-bezier(.16,1,.3,1) both; }
+    .fade-in    { animation: fadeIn  0.5s ease both; }
+    .float-anim { animation: float   5s ease-in-out infinite; }
+    .scroll-bounce { animation: scrollBounce 1.8s ease-in-out infinite; }
+    .marquee-inner { animation: marquee 32s linear infinite; display:inline-flex; white-space:nowrap; }
     .marquee-wrap:hover .marquee-inner { animation-play-state:paused; }
 
-    /* Gold shimmer text */
     .shimmer-gold {
-      background: linear-gradient(90deg, #C9A84C 0%, #F5E8C0 40%, #E5C97A 60%, #C9A84C 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 3s linear infinite;
+      background: linear-gradient(90deg,#C9A84C 0%,#F5E8C0 40%,#E5C97A 60%,#C9A84C 100%);
+      background-size:200% auto; -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; background-clip:text;
+      animation: shimmer 3.5s linear infinite;
     }
+    .delay-1{animation-delay:.12s} .delay-2{animation-delay:.25s}
+    .delay-3{animation-delay:.4s}  .delay-4{animation-delay:.55s}
 
-    /* Card hover lift */
-    .card-lift {
-      transition: transform .4s cubic-bezier(.25,1,.5,1), box-shadow .4s ease;
-    }
-    .card-lift:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 24px 48px -8px rgba(27,58,45,0.18);
-    }
+    /* ── Layout helpers ── */
+    .card-lift { transition:transform .4s cubic-bezier(.25,1,.5,1),box-shadow .4s ease; }
+    .card-lift:hover { transform:translateY(-10px); box-shadow:0 24px 48px -8px rgba(27,58,45,.18); }
 
-    /* Gold border pulse on focus */
-    .gold-pulse:focus-within { animation: borderPulse 1.5s ease infinite; }
-
-    /* Staggered delays */
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.35s; }
-    .delay-4 { animation-delay: 0.5s; }
-
-    /* Hero diagonal split */
-    .hero-bg {
-      background: linear-gradient(135deg, #0F2318 0%, #1B3A2D 40%, #2D2012 70%, #4A0F1C 100%);
-    }
-
-    /* Section backgrounds */
+    .hero-bg { background:linear-gradient(135deg,#0F2318 0%,#1B3A2D 40%,#2D2012 70%,#4A0F1C 100%); }
     .bg-cream-texture {
-      background-color: #F8F3EA;
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-color:#F8F3EA;
+      background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23C9A84C' fill-opacity='0.045'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* Patterns for product cards */
-    .pat-1 {
-      background: radial-gradient(ellipse at 30% 70%, #2D5A42 0%, #1B3A2D 60%),
-                  repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(201,168,76,0.12) 10px, rgba(201,168,76,0.12) 12px);
-    }
-    .pat-2 {
-      background: linear-gradient(135deg, #4A0F1C 0%, #6B1A2A 50%, #2D0A13 100%);
-      background-image: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.15) 0%, transparent 60%),
-                        repeating-conic-gradient(rgba(201,168,76,0.06) 0deg 10deg, transparent 10deg 20deg);
-    }
-    .pat-3 {
-      background: linear-gradient(160deg, #2D2012 0%, #3D2F18 100%);
-      background-image: repeating-linear-gradient(90deg, rgba(201,168,76,0.1) 0px, rgba(201,168,76,0.1) 1px, transparent 1px, transparent 20px),
-                        repeating-linear-gradient(0deg, rgba(201,168,76,0.1) 0px, rgba(201,168,76,0.1) 1px, transparent 1px, transparent 20px);
-    }
-    .pat-4 {
-      background: conic-gradient(from 45deg, #1B3A2D 0%, #2D5A42 25%, #1B3A2D 50%, #0F2318 75%, #1B3A2D 100%);
-    }
-    .pat-5 {
-      background: linear-gradient(135deg, #2D0A13, #4A0F1C 40%, #6B1A2A 70%, #4A0F1C 100%);
-      background-image: radial-gradient(circle at 20% 80%, rgba(201,168,76,0.2) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 20%, rgba(201,168,76,0.15) 0%, transparent 40%);
-    }
-    .pat-6 {
-      background: linear-gradient(135deg, #1a1408 0%, #2D2012 50%, #3D2F18 100%);
-      background-image: repeating-radial-gradient(circle at 50% 50%, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.08) 5px, transparent 5px, transparent 20px);
-    }
-    .pat-7 { background: linear-gradient(160deg, #0F2318, #1B3A2D 50%, #2D3A18 100%); }
-    .pat-8 { background: linear-gradient(135deg, #3D0F1C 0%, #6B1A2A 60%, #4A0F1C 100%); }
-
-    /* Nav link underline anim */
-    .nav-link {
-      position: relative;
-    }
-    .nav-link::after {
-      content:'';
-      position:absolute;
-      bottom:-3px;
-      left:0;
-      width:0;
-      height:1px;
-      background:#C9A84C;
-      transition:width .3s ease;
-    }
+    /* ── Nav link underline ── */
+    .nav-link { position:relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:#C9A84C; transition:width .3s ease; }
     .nav-link:hover::after { width:100%; }
 
-    /* Ornament divider */
-    .ornament {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #C9A84C;
+    /* ── Gold ornament divider ── */
+    .ornament { display:flex; align-items:center; gap:12px; color:#C9A84C; }
+    .ornament::before,.ornament::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,#C9A84C55,#C9A84C,#C9A84C55,transparent); }
+
+    /* ══════════════════════════════════════════
+       COLLECTION VISUAL PATTERNS (CSS only)
+    ══════════════════════════════════════════ */
+
+    /* GULNAAR — floral warmth: deep rose + blush + leafy accents */
+    .pat-gulnaar {
+      background: linear-gradient(145deg, #6B1535 0%, #9B2A4A 35%, #C84B6E 65%, #8B1F3F 100%);
+      background-image:
+        radial-gradient(ellipse 40px 55px at 25% 30%, rgba(255,200,200,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 30px 45px at 70% 65%, rgba(255,180,180,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 25px 35px at 55% 20%, rgba(255,220,210,0.12) 0%, transparent 60%),
+        radial-gradient(circle 3px at 30% 40%, rgba(255,230,200,0.35) 0%, transparent 100%),
+        radial-gradient(circle 2px at 60% 70%, rgba(255,220,190,0.3) 0%, transparent 100%),
+        radial-gradient(circle 4px at 80% 30%, rgba(255,200,180,0.25) 0%, transparent 100%);
     }
-    .ornament::before, .ornament::after {
-      content:'';
-      flex:1;
-      height:1px;
-      background: linear-gradient(90deg, transparent, #C9A84C55, #C9A84C, #C9A84C55, transparent);
+    .pat-gulnaar-b {
+      background: linear-gradient(160deg, #5A1028 0%, #8A2040 40%, #B0364E 70%, #7A1830 100%);
+      background-image:
+        repeating-linear-gradient(30deg, rgba(255,180,180,0.07) 0px, rgba(255,180,180,0.07) 1px, transparent 1px, transparent 24px),
+        repeating-linear-gradient(-30deg, rgba(255,180,180,0.07) 0px, rgba(255,180,180,0.07) 1px, transparent 1px, transparent 24px),
+        radial-gradient(ellipse 50px 70px at 40% 50%, rgba(200,75,110,0.3) 0%, transparent 70%);
     }
 
-    /* Bordered box */
-    .heritage-border {
-      position: relative;
+    /* NOOR-E-PASTELS — soft lavender, blush, mint */
+    .pat-noor {
+      background: linear-gradient(130deg, #C4B8DA 0%, #D4C8E8 30%, #E8D8E8 55%, #D4C4D0 80%, #BAB0CC 100%);
+      background-image:
+        radial-gradient(ellipse 80px 60px at 20% 70%, rgba(255,220,230,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse 60px 80px at 75% 25%, rgba(210,200,240,0.35) 0%, transparent 60%),
+        radial-gradient(circle 2px at 35% 45%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 65% 75%, rgba(255,255,255,0.4) 0%, transparent 100%);
     }
-    .heritage-border::before {
-      content:'';
-      position:absolute;
-      inset:8px;
-      border:1px solid rgba(201,168,76,0.2);
-      pointer-events:none;
+    .pat-noor-b {
+      background: linear-gradient(145deg, #B8D4C8 0%, #C8E0D4 35%, #D8EAE0 60%, #BCCCC4 100%);
+      background-image:
+        radial-gradient(ellipse 70px 50px at 60% 40%, rgba(200,240,220,0.4) 0%, transparent 60%),
+        radial-gradient(circle 2px at 25% 60%, rgba(255,255,255,0.5) 0%, transparent 100%);
     }
 
-    /* Scroll indicator */
-    @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
-    .scroll-bounce { animation: scrollBounce 1.6s ease-in-out infinite; }
+    /* SUNSHINE PALETTE — warm yellows, ochres, golden */
+    .pat-sunshine {
+      background: linear-gradient(135deg, #7A5500 0%, #B07A10 30%, #D4A017 60%, #E8BC30 85%, #C49020 100%);
+      background-image:
+        radial-gradient(ellipse 90px 60px at 30% 60%, rgba(255,240,150,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 60px 80px at 70% 30%, rgba(255,220,100,0.2) 0%, transparent 60%),
+        repeating-linear-gradient(60deg, rgba(255,255,200,0.05) 0px, rgba(255,255,200,0.05) 1px, transparent 1px, transparent 20px);
+    }
+    .pat-sunshine-b {
+      background: linear-gradient(155deg, #8A6200 0%, #C09010 40%, #DDB825 70%, #A87E10 100%);
+      background-image:
+        radial-gradient(circle 3px at 40% 35%, rgba(255,248,180,0.4) 0%, transparent 100%),
+        radial-gradient(circle 2px at 70% 70%, rgba(255,240,150,0.35) 0%, transparent 100%),
+        radial-gradient(ellipse 100px 50px at 50% 80%, rgba(255,200,50,0.15) 0%, transparent 60%);
+    }
+
+    /* ART WEAR — dark taupe, charcoal, human-silhouette feel */
+    .pat-artwear {
+      background: linear-gradient(150deg, #1A1410 0%, #2E2418 35%, #3B3028 65%, #261E14 100%);
+      background-image:
+        repeating-linear-gradient(90deg, rgba(201,168,76,0.07) 0px, rgba(201,168,76,0.07) 1px, transparent 1px, transparent 35px),
+        repeating-linear-gradient(0deg, rgba(201,168,76,0.07) 0px, rgba(201,168,76,0.07) 1px, transparent 1px, transparent 35px),
+        radial-gradient(ellipse 60px 120px at 50% 50%, rgba(201,168,76,0.12) 0%, transparent 60%);
+    }
+    .pat-artwear-b {
+      background: linear-gradient(135deg, #221C12 0%, #332616 40%, #4A3820 70%, #2E2418 100%);
+      background-image:
+        linear-gradient(to bottom, transparent 35%, rgba(201,168,76,0.15) 50%, transparent 65%),
+        repeating-linear-gradient(45deg, rgba(201,168,76,0.04) 0px, rgba(201,168,76,0.04) 1px, transparent 1px, transparent 18px);
+    }
+
+    /* WINGED COLLECTION — peacock teal, deep blue-greens */
+    .pat-winged {
+      background: linear-gradient(140deg, #0D2E36 0%, #1E4D5A 35%, #2D6E7A 60%, #1A3D48 100%);
+      background-image:
+        radial-gradient(ellipse 80px 40px at 30% 70%, rgba(80,200,200,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 50px 80px at 70% 30%, rgba(60,180,180,0.12) 0%, transparent 70%),
+        repeating-linear-gradient(135deg, rgba(100,220,200,0.05) 0px, rgba(100,220,200,0.05) 1px, transparent 1px, transparent 20px),
+        radial-gradient(circle 2px at 55% 55%, rgba(150,240,220,0.3) 0%, transparent 100%);
+    }
+    .pat-winged-b {
+      background: linear-gradient(155deg, #102830 0%, #1C4050 40%, #265060 70%, #142838 100%);
+      background-image:
+        radial-gradient(ellipse 120px 60px at 50% 40%, rgba(50,160,180,0.2) 0%, transparent 60%),
+        repeating-radial-gradient(circle at 50% 50%, rgba(80,200,210,0.04) 0%, rgba(80,200,210,0.04) 12px, transparent 12px, transparent 24px);
+    }
+
+    /* PREMIUM AFFAIR — deep walnut, charcoal, opulent gold */
+    .pat-premium {
+      background: linear-gradient(145deg, #2A1A08 0%, #3D2610 30%, #5C3D1E 55%, #3A2410 85%, #1E1006 100%);
+      background-image:
+        radial-gradient(ellipse 70px 50px at 30% 40%, rgba(201,168,76,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 50px 70px at 70% 70%, rgba(201,168,76,0.16) 0%, transparent 60%),
+        repeating-conic-gradient(rgba(201,168,76,0.04) 0deg 15deg, transparent 15deg 30deg);
+    }
+    .pat-premium-b {
+      background: linear-gradient(155deg, #1A0E04 0%, #2E1E0A 40%, #4A3018 70%, #2A1A06 100%);
+      background-image:
+        radial-gradient(circle 3px at 35% 40%, rgba(201,168,76,0.5) 0%, transparent 100%),
+        radial-gradient(circle 2px at 65% 65%, rgba(201,168,76,0.4) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 50% 20%, rgba(201,168,76,0.35) 0%, transparent 100%),
+        repeating-linear-gradient(45deg, rgba(201,168,76,0.05) 0px, rgba(201,168,76,0.05) 1px, transparent 1px, transparent 15px);
+    }
+
+    /* ── Collection card hover border glow ── */
+    .col-card-gulnaar:hover   { box-shadow:0 0 0 1px rgba(200,75,110,0.5), 0 20px 40px -10px rgba(200,75,110,0.2); }
+    .col-card-noor:hover      { box-shadow:0 0 0 1px rgba(168,155,197,0.5), 0 20px 40px -10px rgba(168,155,197,0.2); }
+    .col-card-sunshine:hover  { box-shadow:0 0 0 1px rgba(212,160,23,0.5), 0 20px 40px -10px rgba(212,160,23,0.2); }
+    .col-card-artwear:hover   { box-shadow:0 0 0 1px rgba(90,70,40,0.5), 0 20px 40px -10px rgba(90,70,40,0.2); }
+    .col-card-winged:hover    { box-shadow:0 0 0 1px rgba(58,107,122,0.5), 0 20px 40px -10px rgba(58,107,122,0.2); }
+    .col-card-premium:hover   { box-shadow:0 0 0 1px rgba(201,168,76,0.6), 0 20px 40px -10px rgba(201,168,76,0.25); }
+
+    .col-card { transition: transform .4s cubic-bezier(.25,1,.5,1), box-shadow .4s ease; }
+    .col-card:hover { transform: translateY(-8px); }
+
+    /* ── Active filter button per collection ── */
+    .filter-gulnaar   { background:#C84B6E!important; border-color:#C84B6E!important; }
+    .filter-noor      { background:#A89BC5!important; border-color:#A89BC5!important; }
+    .filter-sunshine  { background:#D4A017!important; border-color:#D4A017!important; }
+    .filter-artwear   { background:#3B3028!important; border-color:#3B3028!important; }
+    .filter-winged    { background:#3A6B7A!important; border-color:#3A6B7A!important; }
+    .filter-premium   { background:#5C3D1E!important; border-color:#5C3D1E!important; }
   </style>
 </head>
 
 <body class="grain bg-cream text-charcoal font-sans overflow-x-hidden">
-  <div id="root"></div>
+<div id="root"></div>
 
-  <script type="text/babel">
-    const { useState, useEffect, useRef, useCallback } = React;
+<script type="text/babel">
+const { useState, useEffect } = React;
 
-    // ── Data ──────────────────────────────────────────────────────────────
-    const PRODUCTS = [
-      { id:1, name:"The Saraswati Suit",      category:"Mulmul Suits",         price:4800,  fabric:"Pure Mulmul",        tag:"Classic Hand-Painted",  pat:"pat-1", desc:"Cream mulmul cotton with hand-painted gold swan motifs and custom lace borders.", specs:"100% organic cotton, handmade block accents, hand-wash only.", popular:true  },
-      { id:2, name:"Devi Temple Anarkali",     category:"Silk Suits",           price:8500,  fabric:"Kora Silk",           tag:"Karigar Embroidered",   pat:"pat-2", desc:"Deep maroon silk suit with borders inspired by ancient Rajasthani temple walls.",  specs:"Pure silk base, real metallic zari threads, dry clean only.", popular:true  },
-      { id:3, name:"Kamadhenu Block Saree",    category:"Silk Suits",           price:12000, fabric:"Pure Tussar Silk",    tag:"Sacred Cow Prints",     pat:"pat-3", desc:"Earthy olive green saree depicting the wish-granting cow, framed in red borders.", specs:"5.5 metres, hand-loomed in Bengal, includes blouse piece.", popular:false },
-      { id:4, name:"Mayura Indigo Co-ord",     category:"Coord Sets",           price:3600,  fabric:"Slub Cotton",         tag:"Peacock Block Prints",  pat:"pat-4", desc:"Comfort-fit high neck coord set with deep indigo dyes and peacock patterns.",       specs:"Breathable heavy cotton, pocket details, standard fit.", popular:true  },
-      { id:5, name:"Dusk Haveli Suit",         category:"Hand-Stitched Suits",  price:5400,  fabric:"Desert Khadi Cotton", tag:"100% Hand-Tailored",    pat:"pat-5", desc:"Earthy ochre tunic and structured pants, hand-tailored by master craftsmen.",       specs:"Hand-spun khadi yarn, natural clay dyes, signature brass buttons.", popular:false },
-      { id:6, name:"Vasant Lotus Choga",       category:"Mulmul Suits",         price:6800,  fabric:"Chanderi Silk-Mulmul",tag:"Golden Lotus Embellished",pat:"pat-6",desc:"Light gold choga with detailed lotus mandalas and sheer bell sleeves.",             specs:"Silk-Mulmul blend, gota patti work on yoke, comes with slip.", popular:false },
-      { id:7, name:"Meghdoot Rain Suit",       category:"Cotton Suits",         price:4200,  fabric:"Premium Mul Cotton",  tag:"Hand-Block Print",      pat:"pat-7", desc:"Cloud-grey suit set inspired by rain-clouds of Kalidasa's poetry.",                specs:"Super-soft lining, includes mulmul dupatta, relaxed fit.", popular:false },
-      { id:8, name:"Yashoda Festive Kurta",    category:"Hand-Stitched Suits",  price:6200,  fabric:"Linen-Silk Blend",    tag:"Traditional Zardozi",   pat:"pat-8", desc:"A celebration of hand-crafted zardozi along the collar, in rich vermilion.",       specs:"Silk linen weave, micro-beading, relaxed tailored fit.", popular:true  },
-    ];
+// ══════════════════════════════════════════════════════
+//  COLLECTION DEFINITIONS
+// ══════════════════════════════════════════════════════
+const COLLECTIONS = [
+  {
+    id: "gulnaar",
+    name: "Gulnaar Collection",
+    tagline: "Blooming in every thread",
+    theme: "All Florals",
+    desc: "Named for the pomegranate blossom, Gulnaar celebrates India's garden of flowers — roses stitched into hems, jasmines printed on yokes, and marigolds scattered across silk.",
+    accent: "#C84B6E",
+    accentLight: "#F0B8C8",
+    bgClass: "pat-gulnaar",
+    icon: "🌸",
+    filterClass: "filter-gulnaar",
+    cardClass: "col-card-gulnaar",
+    textColor: "#C84B6E",
+  },
+  {
+    id: "noor",
+    name: "Noor-e-Pastels",
+    tagline: "Soft light, softer stories",
+    theme: "All Pastels",
+    desc: "Noor — meaning 'light' — wraps the wearer in the gentlest hues: blush, powder lavender, morning mint, and petal pink. Breathable fabrics dyed in whisper-soft tones.",
+    accent: "#A89BC5",
+    accentLight: "#DDD6F0",
+    bgClass: "pat-noor",
+    icon: "🌷",
+    filterClass: "filter-noor",
+    cardClass: "col-card-noor",
+    textColor: "#7B6EA5",
+  },
+  {
+    id: "sunshine",
+    name: "Sunshine Palette",
+    tagline: "Warm as the first ray",
+    theme: "Yellows & Its Hues",
+    desc: "From pale lemon to deep ochre, the Sunshine Palette draws its warmth from turmeric fields and marigold garlands. A celebration of India's most beloved colour.",
+    accent: "#D4A017",
+    accentLight: "#F5E0A0",
+    bgClass: "pat-sunshine",
+    icon: "☀️",
+    filterClass: "filter-sunshine",
+    cardClass: "col-card-sunshine",
+    textColor: "#A07010",
+  },
+  {
+    id: "artwear",
+    name: "Art Wear Collection",
+    tagline: "When cloth becomes canvas",
+    theme: "Human & Figure Silhouettes",
+    desc: "Art Wear pieces carry figures — dancers, meditating sages, lovers beneath trees — hand-drawn in block and embroidery. Each garment is a wearable painting.",
+    accent: "#6B5030",
+    accentLight: "#C8A870",
+    bgClass: "pat-artwear",
+    icon: "🎨",
+    filterClass: "filter-artwear",
+    cardClass: "col-card-artwear",
+    textColor: "#5C3D1E",
+  },
+  {
+    id: "winged",
+    name: "Winged Collection",
+    tagline: "Free as feather, wild as sky",
+    theme: "Birds & Winged Motifs",
+    desc: "Peacocks mid-dance, cranes in flight, sunbirds perched on lotus — the Winged Collection honours India's most graceful creatures through teal, indigo, and forest prints.",
+    accent: "#3A6B7A",
+    accentLight: "#A0C8D0",
+    bgClass: "pat-winged",
+    icon: "🦚",
+    filterClass: "filter-winged",
+    cardClass: "col-card-winged",
+    textColor: "#2A5060",
+  },
+  {
+    id: "premium",
+    name: "Premium Affair",
+    tagline: "Crafted for those who know",
+    theme: "Premium Occasion Wear",
+    desc: "For evenings that deserve to be remembered. Premium Affair pieces are our finest — real zardozi, hand-laid gota patti, and bespoke silhouettes in pure silk and linen.",
+    accent: "#C9A84C",
+    accentLight: "#F5E8C0",
+    bgClass: "pat-premium",
+    icon: "✦",
+    filterClass: "filter-premium",
+    cardClass: "col-card-premium",
+    textColor: "#8B6820",
+  },
+];
 
-    const PRINTS = [
-      { icon:"🦢", title:"Swan of Saraswati",   desc:"A symbol of discrimination and beauty, swimming through cosmic rivers of ancient wisdom.", pat:"pat-1" },
-      { icon:"🌸", title:"Lotus Mandala",        desc:"Petals unfolding at dawn, representing purity rising from ancient sacred waters.",          pat:"pat-6" },
-      { icon:"🦚", title:"Peacock in the Rain",  desc:"Wild joy under thunderous skies, hand-carved block stamps on rich indigo fabrics.",          pat:"pat-4" },
-      { icon:"🐄", title:"Kamadhenu's Grace",    desc:"The celestial cow, rendering abundance and warmth across handwoven Bengal fabric.",          pat:"pat-3" },
-      { icon:"🙏", title:"The Warrior Goddess",  desc:"Brave protective lines drawn from traditional folk talismans and temple friezes.",            pat:"pat-2" },
-    ];
+// ══════════════════════════════════════════════════════
+//  PRODUCT DATA — 3 pieces per collection (18 total)
+// ══════════════════════════════════════════════════════
+const PRODUCTS = [
+  /* ── GULNAAR (Floral) ── */
+  { id:1,  collection:"gulnaar",  name:"Gulnaar Anarkali",          fabric:"Kora Silk",           price:7200,  tag:"Rose Block Print",       pat:"pat-gulnaar",   desc:"Deep rose silk anarkali with hand-carved rose block prints cascading from shoulder to hem.",                specs:"Pure silk, natural rose dye, dry clean only.", popular:true  },
+  { id:2,  collection:"gulnaar",  name:"Jasmine Mulmul Set",        fabric:"Pure Mulmul",         price:4600,  tag:"Jasmine Embroidered",    pat:"pat-gulnaar-b", desc:"Ivory mulmul suit with intricate jasmine chain-stitch embroidery on the yoke and cuffs.",              specs:"100% organic mulmul, hand-wash gently.", popular:false },
+  { id:3,  collection:"gulnaar",  name:"Marigold Chanderi Kurta",   fabric:"Chanderi Silk",       price:5800,  tag:"Marigold Motifs",        pat:"pat-gulnaar",   desc:"Chanderi kurta adorned with scattered marigold prints in saffron and gold, worn with straight pants.", specs:"Chanderi silk-cotton blend, hand block printed.", popular:true  },
 
-    const CATS = ["All","Cotton Suits","Silk Suits","Mulmul Suits","Hand-Stitched Suits","Coord Sets"];
+  /* ── NOOR-E-PASTELS ── */
+  { id:4,  collection:"noor",     name:"Blush Mul Suit",            fabric:"Mul Cotton",          price:3800,  tag:"Soft Blush Pink",        pat:"pat-noor",      desc:"The softest blush mul cotton suit, naturally dyed, with delicate self-weave texture.",                  specs:"100% mul cotton, machine-wash cold.", popular:true  },
+  { id:5,  collection:"noor",     name:"Lavender Linen Co-ord",     fabric:"Handloom Linen",      price:5200,  tag:"Powder Lavender",        pat:"pat-noor-b",    desc:"Breezy lavender linen co-ord set — wide-leg pants and a boxy kurta with pockets.",                      specs:"Pure handloom linen, low-iron.", popular:false },
+  { id:6,  collection:"noor",     name:"Petal Silk Dupatta Set",    fabric:"Mulberry Silk",       price:8900,  tag:"Mint & Rose Pastel",     pat:"pat-noor",      desc:"Three-piece silk suit in mint with a rose-pastel chiffon dupatta and hand-painted border.",            specs:"Mulberry silk, metallic thread border, dry clean.", popular:true  },
 
-    // ── Logo Component (SVG recreation of brand logo) ─────────────────────
-    function IsharaLogo({ size = "md", forNav = false }) {
-      const scales = { sm:"w-28", md:"w-40", lg:"w-56", xl:"w-72" };
-      return (
-        <div className={`${scales[size]} flex-shrink-0`}>
-          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-            {/* ── Lotus top ── */}
-            <g transform="translate(160,0)">
-              {/* Needle */}
-              <line x1="55" y1="48" x2="68" y2="68" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round"/>
-              <ellipse cx="68.5" cy="70" rx="2" ry="3.5" fill="#C9A84C" transform="rotate(35,68.5,70)"/>
-              {/* Thread loop */}
-              <path d="M46,52 C52,44 60,46 58,54 C56,60 48,58 46,52 Z" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
-              {/* Knot / weave diamond */}
-              <path d="M-4,52 L10,42 L24,52 L10,62 Z M-4,52 L10,62 L24,52 M10,42 L10,62" fill="none" stroke="#C9A84C" strokeWidth="1.4" strokeLinejoin="round"/>
-              <line x1="0" y1="47" x2="20" y2="57" stroke="#C9A84C" strokeWidth="0.8"/>
-              <line x1="20" y1="47" x2="0" y2="57" stroke="#C9A84C" strokeWidth="0.8"/>
-              {/* Centre lotus petals */}
-              <path d="M0,40 C-6,30 -10,18 0,10 C10,18 6,30 0,40 Z" fill="#C9A84C"/>
-              <path d="M0,40 C-12,34 -20,22 -14,12 C-6,20 -4,32 0,40 Z" fill="#C9A84C" opacity="0.85"/>
-              <path d="M0,40 C12,34 20,22 14,12 C6,20 4,32 0,40 Z" fill="#C9A84C" opacity="0.85"/>
-              <path d="M0,40 C-18,36 -24,26 -20,16 C-12,24 -8,34 0,40 Z" fill="#C9A84C" opacity="0.6"/>
-              <path d="M0,40 C18,36 24,26 20,16 C12,24 8,34 0,40 Z" fill="#C9A84C" opacity="0.6"/>
-              {/* Connecting curve down */}
-              <path d="M-20,56 C-10,62 10,62 20,56" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
-            </g>
-            {/* ── "इश" Devanagari in forest green ── */}
-            <text x="60" y="130" fontFamily="serif" fontSize="64" fontWeight="700" fill="#1B3A2D" letterSpacing="-1">इश</text>
-            {/* ── "ara" latin script in gold ── */}
-            <text x="178" y="128" fontFamily="'Great Vibes', cursive" fontSize="52" fill="#C9A84C">ara</text>
-            {/* ── Needle after "ara" ── */}
-            <line x1="248" y1="100" x2="260" y2="130" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round"/>
-            <ellipse cx="260" cy="132" rx="2" ry="4" fill="#C9A84C"/>
-            <path d="M244,118 C250,112 256,116 253,124" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
-            {/* ── "weave your story" tagline ── */}
-            <text x="160" y="163" fontFamily="'Great Vibes', cursive" fontSize="22" fill="#C9A84C" textAnchor="middle">— weave your story —</text>
-          </svg>
-        </div>
-      );
-    }
+  /* ── SUNSHINE PALETTE ── */
+  { id:7,  collection:"sunshine", name:"Turmeric Khadi Suit",       fabric:"Desert Khadi",        price:4400,  tag:"Turmeric Ochre",         pat:"pat-sunshine",  desc:"Hand-spun khadi dyed in raw turmeric — a grounding, earthy ochre with a subtle block-print border.",    specs:"Hand-spun khadi, natural turmeric dye, hand-wash.", popular:true  },
+  { id:8,  collection:"sunshine", name:"Lemon Mulmul Coord",        fabric:"Pure Mulmul",         price:3600,  tag:"Pale Lemon",             pat:"pat-sunshine-b",desc:"Barely-there lemon mulmul coord for lazy summer mornings — featherlight and fresh.",                     specs:"100% mulmul cotton, naturally dyed, gentle wash.", popular:false },
+  { id:9,  collection:"sunshine", name:"Saffron Silk Anarkali",     fabric:"Banarasi Silk",       price:11500, tag:"Saffron Gold",           pat:"pat-sunshine",  desc:"Saffron Banarasi silk anarkali with golden zari weave and a heritage lotus border.",                     specs:"Pure Banarasi silk, zari woven, dry clean only.", popular:true  },
 
-    // ── Toast ─────────────────────────────────────────────────────────────
-    function Toast({ message }) {
-      return (
-        <div className="fixed bottom-6 right-6 z-[999] bg-forest text-cream border-l-4 border-gold px-6 py-4 shadow-2xl fade-in flex items-center gap-3 max-w-xs">
-          <span className="text-gold text-lg">✦</span>
-          <p className="font-serif text-sm tracking-wide leading-snug">{message}</p>
-        </div>
-      );
-    }
+  /* ── ART WEAR ── */
+  { id:10, collection:"artwear",  name:"The Dancing Sage Kurta",    fabric:"Linen-Silk Blend",    price:6800,  tag:"Bharatnatyam Silhouette",pat:"pat-artwear",   desc:"A Bharatnatyam dancer etched in block print runs across this deep taupe linen-silk kurta.",              specs:"Linen-silk, hand block print, organic dye.", popular:true  },
+  { id:11, collection:"artwear",  name:"Lovers Beneath Trees Suit", fabric:"Slub Cotton",         price:5600,  tag:"Folk Art Figures",       pat:"pat-artwear-b", desc:"Inspired by miniature paintings — a couple beneath a flowering tree hand-embroidered on slub cotton.",  specs:"Heavy slub cotton, hand embroidery, low-iron.", popular:false },
+  { id:12, collection:"artwear",  name:"Meditating Sage Saree",     fabric:"Pure Tussar Silk",    price:14000, tag:"Human Silhouette Print", pat:"pat-artwear",   desc:"A rare tussar silk saree with a repeated meditating figure motif stamped in natural indigo.",            specs:"Pure tussar, indigo hand-stamp, dry clean.", popular:true  },
 
-    // ── Section Label ─────────────────────────────────────────────────────
-    function SectionLabel({ text, light = false }) {
-      return (
-        <div className="ornament mb-3">
-          <span className={`text-[10px] uppercase font-sans font-semibold tracking-[0.35em] ${light ? "text-gold-pale" : "text-gold"} whitespace-nowrap`}>
-            {text}
+  /* ── WINGED ── */
+  { id:13, collection:"winged",   name:"Peacock Court Anarkali",    fabric:"Kora Silk",           price:9200,  tag:"Peacock Block Print",    pat:"pat-winged",    desc:"Teal kora silk anarkali with full peacock plume prints hand-carved and stamped in deep indigo.",          specs:"Pure kora silk, natural indigo print, dry clean.", popular:true  },
+  { id:14, collection:"winged",   name:"Crane Flight Suit",         fabric:"Premium Mul Cotton",  price:5000,  tag:"Crane Silhouette",       pat:"pat-winged-b",  desc:"Slate-blue mul cotton suit with cranes in flight across the dupatta and hem border.",                     specs:"Mul cotton, hand block print, gentle wash.", popular:false },
+  { id:15, collection:"winged",   name:"Sunbird Silk Dupatta Set",  fabric:"Chanderi Silk",       price:7800,  tag:"Sunbird Embroidered",    pat:"pat-winged",    desc:"Peacock-teal chanderi three-piece with hand-embroidered sunbirds on the dupatta and yoke.",              specs:"Chanderi silk, zardozi birds, dry clean.", popular:true  },
+
+  /* ── PREMIUM AFFAIR ── */
+  { id:16, collection:"premium",  name:"The Golden Hour Ensemble",  fabric:"Pure Raw Silk",       price:18500, tag:"Real Zardozi",           pat:"pat-premium",   desc:"Our crown jewel — raw silk with real zardozi work, hand-laid gota patti, and a floor-length silhouette.", specs:"Pure raw silk, real gold zardozi, dry clean only.", popular:true  },
+  { id:17, collection:"premium",  name:"Midnight Silk Lehenga Set", fabric:"Mulberry Silk",       price:22000, tag:"Gota Patti Embellished", pat:"pat-premium-b", desc:"Midnight silk lehenga set with intricate gota patti work on the blouse and a full flared skirt.",          specs:"Mulberry silk, hand-applied gota, dry clean.", popular:true  },
+  { id:18, collection:"premium",  name:"Ivory Brocade Sherwani",    fabric:"Banarasi Brocade",    price:16000, tag:"Heritage Brocade",       pat:"pat-premium",   desc:"For ceremonies that demand the finest — ivory brocade with a self-woven heritage pattern.",              specs:"Banarasi brocade, silver border, dry clean.", popular:false },
+];
+
+const ALL_CATS = ["All", ...COLLECTIONS.map(c => c.id)];
+
+// ── Helpers ──────────────────────────────────────────
+function getCollection(id) { return COLLECTIONS.find(c => c.id === id) || COLLECTIONS[0]; }
+
+// ── Logo ─────────────────────────────────────────────
+function IsharaLogo({ size = "md", light = false }) {
+  const w = { sm:"w-28", md:"w-40", lg:"w-56", xl:"w-72" }[size] || "w-40";
+  const hindiColor = light ? "#F8F3EA" : "#1B3A2D";
+  return (
+    <div className={`${w} flex-shrink-0`}>
+      <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
+        <g transform="translate(160,0)">
+          <line x1="55" y1="48" x2="68" y2="68" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round"/>
+          <ellipse cx="68.5" cy="70" rx="2" ry="3.5" fill="#C9A84C" transform="rotate(35,68.5,70)"/>
+          <path d="M46,52 C52,44 60,46 58,54 C56,60 48,58 46,52 Z" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
+          <path d="M-4,52 L10,42 L24,52 L10,62 Z M-4,52 L10,62 L24,52 M10,42 L10,62" fill="none" stroke="#C9A84C" strokeWidth="1.4" strokeLinejoin="round"/>
+          <line x1="0" y1="47" x2="20" y2="57" stroke="#C9A84C" strokeWidth="0.8"/>
+          <line x1="20" y1="47" x2="0" y2="57" stroke="#C9A84C" strokeWidth="0.8"/>
+          <path d="M0,40 C-6,30 -10,18 0,10 C10,18 6,30 0,40 Z" fill="#C9A84C"/>
+          <path d="M0,40 C-12,34 -20,22 -14,12 C-6,20 -4,32 0,40 Z" fill="#C9A84C" opacity="0.85"/>
+          <path d="M0,40 C12,34 20,22 14,12 C6,20 4,32 0,40 Z" fill="#C9A84C" opacity="0.85"/>
+          <path d="M0,40 C-18,36 -24,26 -20,16 C-12,24 -8,34 0,40 Z" fill="#C9A84C" opacity="0.6"/>
+          <path d="M0,40 C18,36 24,26 20,16 C12,24 8,34 0,40 Z" fill="#C9A84C" opacity="0.6"/>
+          <path d="M-20,56 C-10,62 10,62 20,56" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
+        </g>
+        <text x="60" y="130" fontFamily="serif" fontSize="64" fontWeight="700" fill={hindiColor} letterSpacing="-1">इश</text>
+        <text x="178" y="128" fontFamily="'Great Vibes', cursive" fontSize="52" fill="#C9A84C">ara</text>
+        <line x1="248" y1="100" x2="260" y2="130" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round"/>
+        <ellipse cx="260" cy="132" rx="2" ry="4" fill="#C9A84C"/>
+        <path d="M244,118 C250,112 256,116 253,124" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
+        <text x="160" y="163" fontFamily="'Great Vibes', cursive" fontSize="22" fill="#C9A84C" textAnchor="middle">— weave your story —</text>
+      </svg>
+    </div>
+  );
+}
+
+// ── Toast ─────────────────────────────────────────────
+function Toast({ msg }) {
+  return (
+    <div className="fixed bottom-6 right-6 z-[999] bg-forest text-cream border-l-4 border-gold px-6 py-4 shadow-2xl fade-in flex items-center gap-3 max-w-xs">
+      <span className="text-gold text-lg">✦</span>
+      <p className="font-serif text-sm tracking-wide leading-snug">{msg}</p>
+    </div>
+  );
+}
+
+// ── Section ornament divider ──────────────────────────
+function SectionLabel({ text, light = false }) {
+  return (
+    <div className="ornament mb-3">
+      <span className={`text-[10px] uppercase font-sans font-semibold tracking-[0.35em] whitespace-nowrap ${light ? "text-gold-pale" : "text-gold"}`}>{text}</span>
+    </div>
+  );
+}
+
+// ── Collection Showcase Card ──────────────────────────
+function CollectionCard({ col, onClick }) {
+  return (
+    <div
+      onClick={() => onClick(col.id)}
+      className={`col-card ${col.cardClass} relative overflow-hidden cursor-pointer border border-white/10 group`}
+      style={{ minHeight: 380 }}
+    >
+      {/* Background pattern */}
+      <div className={`absolute inset-0 ${col.bgClass} transition-transform duration-700 group-hover:scale-105`}/>
+
+      {/* Overlay gradient */}
+      <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)" }}/>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col justify-between h-full p-6 min-h-[380px]">
+        {/* Top badge */}
+        <div className="flex justify-between items-start">
+          <span className="text-3xl">{col.icon}</span>
+          <span className="text-[9px] uppercase tracking-widest font-sans font-bold text-cream/60 border border-cream/20 px-2 py-0.5">
+            {col.theme}
           </span>
         </div>
-      );
-    }
 
-    // ── Product Card ──────────────────────────────────────────────────────
-    function ProductCard({ product, onAddCart, onWishlist, isWishlisted, onQuickLook }) {
-      return (
-        <div className={`relative flex flex-col bg-cream border border-gold/20 card-lift group cursor-pointer`}>
-          {/* Image / Pattern area */}
-          <div className="relative overflow-hidden aspect-[3/4] border-b border-gold/10" onClick={() => onQuickLook(product)}>
-            <div className={`w-full h-full ${product.pat} transition-transform duration-700 group-hover:scale-105`} />
-            {/* Fabric badge */}
-            <div className="absolute top-3 left-3 bg-forest text-gold-light text-[9px] uppercase font-sans font-bold px-2.5 py-1 tracking-wider">
-              {product.fabric}
-            </div>
-            {/* Popular badge */}
-            {product.popular && (
-              <div className="absolute top-3 right-3 bg-gold text-forest-deep text-[9px] uppercase font-sans font-bold px-2 py-0.5">
-                Loved
-              </div>
-            )}
-            {/* Quick look overlay */}
-            <div className="absolute inset-0 bg-forest/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="bg-gold text-forest-deep px-5 py-2 text-[11px] uppercase tracking-widest font-sans font-bold">
-                Quick Look
-              </span>
-            </div>
-          </div>
+        {/* Bottom info */}
+        <div>
+          <p className="font-script text-3xl mb-1" style={{ color: col.accentLight }}>{col.tagline}</p>
+          <h3 className="font-display text-2xl text-cream mb-3">{col.name}</h3>
+          <p className="font-sans text-xs text-cream/60 leading-relaxed mb-5 line-clamp-2">{col.desc}</p>
+          <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest font-sans font-bold border-b pb-0.5 transition-colors"
+            style={{ color: col.accentLight, borderColor: col.accentLight + "80" }}>
+            View Collection →
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-          {/* Info */}
-          <div className="p-4 flex flex-col gap-3">
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-forest/60 font-sans font-medium">{product.tag}</p>
-              <h3 className="font-serif text-base font-semibold text-forest mt-0.5 leading-tight">{product.name}</h3>
-            </div>
-            <div className="flex items-center justify-between pt-2 border-t border-gold/15">
-              <span className="font-sans text-sm font-bold text-charcoal">₹{product.price.toLocaleString("en-IN")}</span>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => onWishlist(product.id)}
-                  className={`p-2 border transition-colors ${isWishlisted ? "border-gold bg-gold/10 text-gold" : "border-gold/30 text-charcoal/60 hover:border-gold hover:text-gold"}`}
-                  aria-label="Wishlist"
-                >
-                  <svg className="w-3.5 h-3.5" fill={isWishlisted ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => onAddCart(product)}
-                  className="bg-forest hover:bg-forest-deep text-cream text-[10px] uppercase tracking-widest font-sans font-bold px-4 py-2 transition-colors"
-                >
-                  Add
-                </button>
-              </div>
-            </div>
+// ── Product Card ──────────────────────────────────────
+function ProductCard({ p, onAddCart, onWish, isWished, onQuickLook }) {
+  const col = getCollection(p.collection);
+  return (
+    <div className="col-card relative flex flex-col bg-cream border border-gold/15 group" style={{borderTop:`3px solid ${col.accent}`}}>
+      {/* Image */}
+      <div className="relative overflow-hidden aspect-[3/4] cursor-pointer" onClick={() => onQuickLook(p)}>
+        <div className={`w-full h-full ${p.pat} transition-transform duration-700 group-hover:scale-105`}/>
+        {/* Fabric tag */}
+        <div className="absolute top-3 left-3 text-[9px] uppercase font-bold tracking-wider px-2.5 py-1 font-sans text-cream" style={{ background: col.accent }}>
+          {p.fabric}
+        </div>
+        {/* Collection pill */}
+        <div className="absolute bottom-3 left-3 text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 font-sans border" style={{ color: col.accentLight, borderColor: col.accentLight + "60", background:"rgba(0,0,0,0.55)" }}>
+          {col.icon} {col.name}
+        </div>
+        {/* Quick look overlay */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: col.accent + "CC" }}>
+          <span className="bg-cream text-charcoal px-5 py-2 text-[11px] uppercase tracking-widest font-sans font-bold">Quick Look</span>
+        </div>
+      </div>
+
+      {/* Info */}
+      <div className="p-4 flex flex-col gap-3">
+        <div>
+          <p className="text-[9px] uppercase tracking-widest font-sans font-medium" style={{ color: col.accent + "CC" }}>{p.tag}</p>
+          <h3 className="font-serif text-base font-semibold text-charcoal mt-0.5 leading-tight">{p.name}</h3>
+        </div>
+        <div className="flex items-center justify-between pt-2 border-t border-gold/12">
+          <span className="font-sans text-sm font-bold text-charcoal">₹{p.price.toLocaleString("en-IN")}</span>
+          <div className="flex gap-2">
+            <button onClick={() => onWish(p.id)} aria-label="Wishlist"
+              className="p-2 border transition-colors"
+              style={{ borderColor: isWished ? col.accent : "rgba(201,168,76,0.2)", background: isWished ? col.accent + "18" : "transparent", color: isWished ? col.accent : "rgba(28,26,24,0.4)" }}>
+              <svg className="w-3.5 h-3.5" fill={isWished ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </button>
+            <button onClick={() => onAddCart(p)}
+              className="text-cream text-[10px] uppercase tracking-widest font-sans font-bold px-4 py-2 transition-colors"
+              style={{ background: col.accent }}>
+              Add
+            </button>
           </div>
         </div>
-      );
-    }
+      </div>
+    </div>
+  );
+}
 
-    // ── Main App ──────────────────────────────────────────────────────────
-    function App() {
-      const [cart, setCart]                   = useState([]);
-      const [wishlist, setWishlist]           = useState([]);
-      const [isCartOpen, setIsCartOpen]       = useState(false);
-      const [isWishOpen, setIsWishOpen]       = useState(false);
-      const [isSearchOpen, setIsSearchOpen]   = useState(false);
-      const [searchQuery, setSearchQuery]     = useState("");
-      const [selectedCat, setSelectedCat]     = useState("All");
-      const [quickLook, setQuickLook]         = useState(null);
-      const [toast, setToast]                 = useState(null);
-      const [scrolled, setScrolled]           = useState(false);
-      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+// ── Main App ──────────────────────────────────────────
+function App() {
+  const [cart, setCart]               = useState([]);
+  const [wishlist, setWishlist]       = useState([]);
+  const [isCartOpen, setIsCartOpen]   = useState(false);
+  const [isWishOpen, setIsWishOpen]   = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCat, setSelectedCat] = useState("All");
+  const [quickLook, setQuickLook]     = useState(null);
+  const [toast, setToast]             = useState(null);
+  const [scrolled, setScrolled]       = useState(false);
+  const [mobileMenuOpen, setMobileMenu] = useState(false);
 
-      // Quiz
-      const [quizStep, setQuizStep]   = useState(1);
-      const [quizAns, setQuizAns]     = useState({});
-      const [quizDone, setQuizDone]   = useState(false);
+  // Quiz
+  const [quizStep, setQuizStep] = useState(1);
+  const [quizAns, setQuizAns]   = useState({});
+  const [quizDone, setQuizDone] = useState(false);
 
-      // Custom form
-      const [customForm, setCustomForm]     = useState({ name:"", contact:"", detail:"", option:"Choose Your Neckline" });
-      const [customSuccess, setCustomSuccess] = useState(false);
+  // Custom form
+  const [customForm, setCustomForm]     = useState({ name:"", contact:"", detail:"", option:"Choose Your Neckline" });
+  const [customSuccess, setCustomSuccess] = useState(false);
 
-      useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 50);
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-      }, []);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
+  }, []);
 
-      const triggerToast = (msg) => {
-        setToast(msg);
-        setTimeout(() => setToast(null), 3200);
-      };
+  const triggerToast = (msg) => { setToast(msg); setTimeout(() => setToast(null), 3200); };
 
-      const addToCart = (product, size = "Standard") => {
-        const key = `${product.id}-${size}`;
-        setCart(prev => {
-          const ex = prev.find(i => i.key === key);
-          if (ex) return prev.map(i => i.key === key ? { ...i, quantity: i.quantity + 1 } : i);
-          return [...prev, { ...product, size, quantity: 1, key }];
-        });
-        triggerToast(`${product.name} added to your circle.`);
-      };
+  const addToCart = (p, size = "Standard") => {
+    const key = `${p.id}-${size}`;
+    setCart(prev => {
+      const ex = prev.find(i => i.key === key);
+      if (ex) return prev.map(i => i.key === key ? {...i, quantity: i.quantity + 1} : i);
+      return [...prev, {...p, size, quantity:1, key}];
+    });
+    triggerToast(`${p.name} added to your circle.`);
+  };
 
-      const removeFromCart = (key) => {
-        setCart(prev => prev.filter(i => i.key !== key));
-      };
+  const removeFromCart = (key) => setCart(prev => prev.filter(i => i.key !== key));
+  const updateQty = (key, d) => setCart(prev => prev.map(i => i.key === key ? {...i, quantity: Math.max(1, i.quantity+d)} : i));
 
-      const updateQty = (key, delta) => {
-        setCart(prev => prev.map(i => i.key === key ? { ...i, quantity: Math.max(1, i.quantity + delta) } : i));
-      };
+  const toggleWish = (id) => {
+    setWishlist(prev => {
+      if (prev.includes(id)) { triggerToast("Removed from wishlist."); return prev.filter(x => x !== id); }
+      triggerToast("Added to wishlist."); return [...prev, id];
+    });
+  };
 
-      const toggleWish = (id) => {
-        setWishlist(prev => {
-          if (prev.includes(id)) { triggerToast("Removed from wishlist."); return prev.filter(x => x !== id); }
-          triggerToast("Added to wishlist."); return [...prev, id];
-        });
-      };
+  const filtered = PRODUCTS.filter(p => {
+    const catOk = selectedCat === "All" || p.collection === selectedCat;
+    const searchOk = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.fabric.toLowerCase().includes(searchQuery.toLowerCase()) || getCollection(p.collection).name.toLowerCase().includes(searchQuery.toLowerCase());
+    return catOk && searchOk;
+  });
 
-      const filteredProducts = PRODUCTS.filter(p => {
-        const catOk = selectedCat === "All" || p.category === selectedCat;
-        const searchOk = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.fabric.toLowerCase().includes(searchQuery.toLowerCase());
-        return catOk && searchOk;
-      });
+  const cartCount = cart.reduce((s,i) => s+i.quantity, 0);
+  const cartTotal = cart.reduce((s,i) => s+i.price*i.quantity, 0);
 
-      const getQuizRec = () => {
-        const pref = quizAns.step2 || "";
-        if (pref.includes("Mulmul"))  return { fabric:"Pure Mulmul",  matches: PRODUCTS.filter(p => p.fabric.includes("Mulmul")) };
-        if (pref.includes("Cotton"))  return { fabric:"Pure Cotton",  matches: PRODUCTS.filter(p => p.fabric.includes("Cotton") || p.fabric.includes("Khadi")) };
-        if (pref.includes("Silk"))    return { fabric:"Pure Silk",    matches: PRODUCTS.filter(p => p.fabric.includes("Silk")) };
-        return { fabric:"Artisan Weave", matches: PRODUCTS.slice(0,3) };
-      };
+  const handleCollectionClick = (id) => {
+    setSelectedCat(id);
+    document.getElementById("collections")?.scrollIntoView({ behavior:"smooth", block:"start" });
+  };
 
-      const handleCustomSubmit = (e) => {
-        e.preventDefault();
-        if (!customForm.name || !customForm.contact) { triggerToast("Please fill in your name and contact."); return; }
-        setCustomSuccess(true);
-        triggerToast("Your request has been sent to our karigars.");
-        setTimeout(() => { setCustomForm({ name:"", contact:"", detail:"", option:"Choose Your Neckline" }); setCustomSuccess(false); }, 5000);
-      };
+  const getQuizRec = () => {
+    const a2 = quizAns.step2 || "";
+    if (a2.includes("floral") || a2.includes("Floral"))   return { col: COLLECTIONS[0], matches: PRODUCTS.filter(p => p.collection === "gulnaar") };
+    if (a2.includes("pastel") || a2.includes("Pastel"))   return { col: COLLECTIONS[1], matches: PRODUCTS.filter(p => p.collection === "noor") };
+    if (a2.includes("warm") || a2.includes("Warm"))       return { col: COLLECTIONS[2], matches: PRODUCTS.filter(p => p.collection === "sunshine") };
+    if (a2.includes("art") || a2.includes("Art"))         return { col: COLLECTIONS[3], matches: PRODUCTS.filter(p => p.collection === "artwear") };
+    if (a2.includes("bird") || a2.includes("Bird"))       return { col: COLLECTIONS[4], matches: PRODUCTS.filter(p => p.collection === "winged") };
+    if (a2.includes("Occasion") || a2.includes("occasion")) return { col: COLLECTIONS[5], matches: PRODUCTS.filter(p => p.collection === "premium") };
+    return { col: COLLECTIONS[Math.floor(Math.random()*6)], matches: PRODUCTS.slice(0,3) };
+  };
 
-      const cartCount = cart.reduce((s, i) => s + i.quantity, 0);
-      const cartTotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  const handleCustomSubmit = (e) => {
+    e.preventDefault();
+    if (!customForm.name || !customForm.contact) { triggerToast("Please fill in your name and contact."); return; }
+    setCustomSuccess(true);
+    triggerToast("Your request has been sent to our karigars.");
+    setTimeout(() => { setCustomForm({ name:"", contact:"", detail:"", option:"Choose Your Neckline" }); setCustomSuccess(false); }, 5000);
+  };
 
-      return (
-        <div className="min-h-screen flex flex-col">
+  return (
+    <div className="min-h-screen flex flex-col">
+      {toast && <Toast msg={toast} />}
 
-          {/* ── TOAST ── */}
-          {toast && <Toast message={toast} />}
+      {/* ── ANNOUNCEMENT STRIP ── */}
+      <div className="bg-maroon border-b border-maroon-deep py-2 overflow-hidden marquee-wrap z-50 relative">
+        <div className="marquee-inner text-gold-light font-sans text-[11px] font-semibold uppercase tracking-[0.25em] gap-16">
+          <span>✦ NEW — 6 EXCLUSIVE COLLECTIONS: GULNAAR · NOOR-E-PASTELS · SUNSHINE PALETTE · ART WEAR · WINGED · PREMIUM AFFAIR ✦ FREE ALTERATIONS ✦ HANDCRAFTED IN INDIA ✦</span>
+          <span>✦ NEW — 6 EXCLUSIVE COLLECTIONS: GULNAAR · NOOR-E-PASTELS · SUNSHINE PALETTE · ART WEAR · WINGED · PREMIUM AFFAIR ✦ FREE ALTERATIONS ✦ HANDCRAFTED IN INDIA ✦</span>
+        </div>
+      </div>
 
-          {/* ── ANNOUNCEMENT STRIP ── */}
-          <div className="bg-maroon border-b border-maroon-deep py-2 overflow-hidden marquee-wrap z-50 relative">
-            <div className="marquee-inner text-gold-light font-sans text-[11px] font-semibold uppercase tracking-[0.25em] gap-16">
-              <span>✦ ISHARA SALE — UP TO 40% OFF MULMUL &amp; SILK ✦ CODE: ISHARA40 ✦ FREE ALTERATIONS ✦ HANDCRAFTED IN INDIA ✦</span>
-              <span>✦ ISHARA SALE — UP TO 40% OFF MULMUL &amp; SILK ✦ CODE: ISHARA40 ✦ FREE ALTERATIONS ✦ HANDCRAFTED IN INDIA ✦</span>
+      {/* ── NAVBAR ── */}
+      <header className={`sticky top-0 z-40 w-full transition-all duration-500 ${scrolled ? "bg-cream/95 backdrop-blur-md shadow-md border-b border-gold/20 py-2" : "bg-cream border-b border-gold/10 py-4"}`}>
+        <div className="max-w-7xl mx-auto px-5 lg:px-8 flex items-center justify-between gap-4">
+          <a href="#"><IsharaLogo size={scrolled ? "sm" : "md"} /></a>
+
+          <nav className="hidden lg:flex items-center gap-7">
+            {[["#","Home"],["#story","Our Story"],["#collections-showcase","Collections"],["#collections","Shop"],["#quiz","Style Quiz"],["#customise","Customise"]].map(([href,label]) => (
+              <a key={label} href={href} className={`nav-link text-[11px] uppercase font-sans font-medium tracking-widest transition-colors ${label === "Customise" ? "text-gold" : "text-charcoal/75 hover:text-forest"}`}>{label}</a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <div className="relative flex items-center">
+              <button onClick={() => setIsSearchOpen(s => !s)} className="text-charcoal/60 hover:text-forest p-1 transition-colors" aria-label="Search">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </button>
+              {isSearchOpen && (
+                <input autoFocus type="text" placeholder="Search collections…" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
+                  className="absolute right-8 top-1/2 -translate-y-1/2 bg-cream border border-gold/40 px-3 py-1.5 text-xs outline-none w-48 shadow-lg font-sans z-50 focus:border-forest"/>
+              )}
             </div>
+            <button onClick={() => setIsWishOpen(true)} className="relative text-charcoal/60 hover:text-forest p-1 transition-colors" aria-label="Wishlist">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              {wishlist.length > 0 && <span className="absolute -top-1 -right-1 bg-gold text-forest-deep text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">{wishlist.length}</span>}
+            </button>
+            <button onClick={() => setIsCartOpen(true)} className="relative text-charcoal/60 hover:text-forest p-1 transition-colors" aria-label="Cart">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              {cartCount > 0 && <span className="absolute -top-1 -right-1 bg-forest text-cream text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">{cartCount}</span>}
+            </button>
+            <button className="lg:hidden text-charcoal/60 hover:text-forest p-1" onClick={() => setMobileMenu(m => !m)} aria-label="Menu">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                {mobileMenuOpen
+                  ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                  : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16"/>}
+              </svg>
+            </button>
+          </div>
+        </div>
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-cream border-t border-gold/15 px-5 py-4 flex flex-col gap-4 fade-in">
+            {[["#","Home"],["#story","Our Story"],["#collections-showcase","Collections"],["#collections","Shop"],["#quiz","Style Quiz"],["#customise","Customise"]].map(([href,label]) => (
+              <a key={label} href={href} onClick={() => setMobileMenu(false)} className="text-xs uppercase tracking-widest text-charcoal/75 hover:text-forest font-sans font-medium py-1 border-b border-gold/10">{label}</a>
+            ))}
+          </div>
+        )}
+      </header>
+
+      {/* ══════════════════════════════════════════════════
+          1. HERO
+      ══════════════════════════════════════════════════ */}
+      <section className="relative min-h-screen w-full hero-bg flex flex-col items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{backgroundImage:"repeating-linear-gradient(0deg,rgba(201,168,76,0.15) 0,rgba(201,168,76,0.15) 1px,transparent 1px,transparent 80px),repeating-linear-gradient(90deg,rgba(201,168,76,0.15) 0,rgba(201,168,76,0.15) 1px,transparent 1px,transparent 80px)"}}/>
+        <div className="absolute inset-0 pointer-events-none" style={{background:"radial-gradient(ellipse at 50% 40%,rgba(201,168,76,0.1) 0%,transparent 60%)"}}/>
+        <div className="absolute top-8 left-8 w-16 h-16 border-t border-l border-gold/25 pointer-events-none"/>
+        <div className="absolute top-8 right-8 w-16 h-16 border-t border-r border-gold/25 pointer-events-none"/>
+        <div className="absolute bottom-8 left-8 w-16 h-16 border-b border-l border-gold/25 pointer-events-none"/>
+        <div className="absolute bottom-8 right-8 w-16 h-16 border-b border-r border-gold/25 pointer-events-none"/>
+
+        <div className="relative z-10 text-center flex flex-col items-center px-6 max-w-3xl mx-auto">
+          <div className="fade-up float-anim mb-8"><IsharaLogo size="xl" light /></div>
+          <div className="ornament w-72 mx-auto mb-8 delay-1 fade-up">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-gold/60 font-sans">Six Collections · One Story</span>
+          </div>
+          <p className="font-serif text-lg md:text-xl text-cream/75 italic leading-relaxed max-w-lg mb-10 fade-up delay-2">
+            "From blooming florals to winged wilderness,<br/>from golden sunshine to the art on your skin."
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 fade-up delay-3">
+            <a href="#collections-showcase" className="bg-gold hover:bg-gold-light text-forest-deep text-[11px] uppercase tracking-widest font-sans font-bold px-10 py-4 transition-colors shadow-lg">
+              Explore Collections
+            </a>
+            <a href="#quiz" className="border border-gold/50 hover:border-gold text-gold hover:bg-gold/10 text-[11px] uppercase tracking-widest font-sans font-bold px-10 py-4 transition-all">
+              Find Your Match
+            </a>
           </div>
 
-          {/* ── NAVBAR ── */}
-          <header className={`sticky top-0 z-40 w-full transition-all duration-500 ${scrolled ? "bg-cream/95 backdrop-blur-md shadow-md border-b border-gold/20 py-2" : "bg-cream border-b border-gold/10 py-4"}`}>
-            <div className="max-w-7xl mx-auto px-5 lg:px-8 flex items-center justify-between gap-4">
-              {/* Logo */}
-              <a href="#" className="flex-shrink-0">
-                <IsharaLogo size={scrolled ? "sm" : "md"} forNav />
+          {/* Mini collection pills */}
+          <div className="mt-12 flex flex-wrap justify-center gap-2 fade-up delay-4">
+            {COLLECTIONS.map(col => (
+              <a key={col.id} href="#collections-showcase"
+                className="text-[9px] uppercase tracking-widest font-sans font-bold px-3 py-1.5 border rounded-full transition-colors"
+                style={{ color: col.accentLight, borderColor: col.accentLight + "40" }}>
+                {col.icon} {col.name.split(" ")[0]}
               </a>
+            ))}
+          </div>
 
-              {/* Centre Nav */}
-              <nav className="hidden lg:flex items-center gap-8">
-                {[["#","Home"],["#collections","Collections"],["#story","Our Story"],["#prints","Craft"],["#quiz","Style Quiz"],["#customise","Customise"]].map(([href, label]) => (
-                  <a key={label} href={href} className={`nav-link text-[11px] uppercase font-sans font-medium tracking-widest text-charcoal/80 hover:text-forest transition-colors ${label === "Customise" ? "text-gold hover:text-gold-light" : ""}`}>
-                    {label}
-                  </a>
-                ))}
-              </nav>
+          <div className="mt-14 flex flex-col items-center gap-2 fade-up delay-4">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-gold/35 font-sans">Scroll</span>
+            <div className="scroll-bounce w-px h-10 bg-gradient-to-b from-gold/45 to-transparent"/>
+          </div>
+        </div>
+      </section>
 
-              {/* Right icons */}
-              <div className="flex items-center gap-4">
-                {/* Search */}
-                <div className="relative flex items-center">
-                  <button onClick={() => setIsSearchOpen(s => !s)} className="text-charcoal/70 hover:text-forest transition-colors p-1" aria-label="Search">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                  </button>
-                  {isSearchOpen && (
-                    <input autoFocus type="text" placeholder="Search fabrics…" value={searchQuery}
-                      onChange={e => setSearchQuery(e.target.value)}
-                      className="absolute right-8 top-1/2 -translate-y-1/2 bg-cream border border-gold/40 px-3 py-1.5 text-xs outline-none w-44 shadow-lg font-sans z-50 focus:border-forest"
-                    />
-                  )}
-                </div>
-
-                {/* Wishlist */}
-                <button onClick={() => setIsWishOpen(true)} className="relative text-charcoal/70 hover:text-forest p-1 transition-colors" aria-label="Wishlist">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                  </svg>
-                  {wishlist.length > 0 && <span className="absolute -top-1 -right-1 bg-gold text-forest-deep text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">{wishlist.length}</span>}
-                </button>
-
-                {/* Cart */}
-                <button onClick={() => setIsCartOpen(true)} className="relative text-charcoal/70 hover:text-forest p-1 transition-colors" aria-label="Cart">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                  </svg>
-                  {cartCount > 0 && <span className="absolute -top-1 -right-1 bg-forest text-cream text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">{cartCount}</span>}
-                </button>
-
-                {/* Mobile menu toggle */}
-                <button className="lg:hidden text-charcoal/70 hover:text-forest p-1" onClick={() => setMobileMenuOpen(m => !m)} aria-label="Menu">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    {mobileMenuOpen
-                      ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                      : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16"/>}
-                  </svg>
-                </button>
+      {/* ══════════════════════════════════════════════════
+          2. BRAND STORY
+      ══════════════════════════════════════════════════ */}
+      <section id="story" className="bg-forest relative overflow-hidden py-20 lg:py-28">
+        <div className="absolute inset-0 opacity-5" style={{backgroundImage:"radial-gradient(circle, #C9A84C 1px, transparent 1px)", backgroundSize:"40px 40px"}}/>
+        <div className="max-w-6xl mx-auto px-6 lg:px-10">
+          <SectionLabel text="The Ethos" light />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mt-8">
+            <div>
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-cream leading-[1.15] font-normal">
+                "Ishara is not just clothing. It is a <em className="shimmer-gold not-italic">gesture</em> — a hand signal passed down from our grandmothers, our rivers, our temple walls."
+              </h2>
+              <div className="mt-8 flex gap-6">
+                <a href="#collections-showcase" className="text-[11px] uppercase tracking-widest font-sans font-bold text-gold border-b border-gold pb-0.5 hover:text-gold-light transition-colors">View Collections →</a>
               </div>
             </div>
+            <div className="flex flex-col gap-8">
+              {[
+                { icon:"🕊", t:"Hand-Stitched by Karigars", d:"Every seam constructed slowly by artisans who carry lineages of garment-craft across generations." },
+                { icon:"🌿", t:"Pure Natural Fibres",       d:"Organic cottons, pure mulberry silk, and hand-loomed Bengal mulmuls breathe with your body." },
+                { icon:"🎨", t:"Six Unique Collections",     d:"Florals, pastels, sunshine hues, art silhouettes, winged motifs and premium occasion wear." },
+              ].map((p,i) => (
+                <div key={i} className="flex gap-5 border-l-2 border-gold/30 pl-5">
+                  <span className="text-2xl mt-0.5">{p.icon}</span>
+                  <div>
+                    <h4 className="font-serif text-base text-gold tracking-wider mb-1">{p.t}</h4>
+                    <p className="text-xs text-cream/55 font-sans leading-relaxed tracking-wide">{p.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-16 pt-10 border-t border-gold/15 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {[["200+","Karigars"],["6","Collections"],["100%","Natural Fibres"],["Hand","Tailored"]].map(([n,l]) => (
+              <div key={l}><p className="font-display text-4xl text-gold">{n}</p><p className="text-[10px] uppercase tracking-widest text-cream/45 font-sans mt-1">{l}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Mobile menu */}
-            {mobileMenuOpen && (
-              <div className="lg:hidden bg-cream border-t border-gold/20 px-5 py-4 flex flex-col gap-4 fade-in">
-                {[["#","Home"],["#collections","Collections"],["#story","Our Story"],["#prints","Craft"],["#quiz","Style Quiz"],["#customise","Customise"]].map(([href, label]) => (
-                  <a key={label} href={href} onClick={() => setMobileMenuOpen(false)} className="text-xs uppercase tracking-widest text-charcoal/80 hover:text-forest font-sans font-medium py-1 border-b border-gold/10">
-                    {label}
-                  </a>
-                ))}
+      {/* ══════════════════════════════════════════════════
+          3. COLLECTION SHOWCASE — 6 cards
+      ══════════════════════════════════════════════════ */}
+      <section id="collections-showcase" className="bg-cream-texture py-20 lg:py-28">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="text-center mb-14">
+            <SectionLabel text="Our World" />
+            <h2 className="font-display text-4xl lg:text-5xl text-forest mt-2">Six Collections,<br/>One Language of Thread</h2>
+            <p className="font-serif italic text-forest/55 mt-3 text-base max-w-xl mx-auto">
+              Each collection tells a different story — click any to browse its pieces.
+            </p>
+          </div>
+
+          {/* 3-col desktop, 2-col tablet, 1-col mobile */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {COLLECTIONS.map(col => (
+              <CollectionCard key={col.id} col={col} onClick={handleCollectionClick} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          4. PRODUCT GRID
+      ══════════════════════════════════════════════════ */}
+      <section id="collections" className="bg-cream py-20 lg:py-28 border-t border-gold/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="text-center mb-10">
+            <SectionLabel text="Shop" />
+            <h2 className="font-display text-4xl lg:text-5xl text-forest mt-2">
+              {selectedCat === "All"
+                ? "All Pieces"
+                : getCollection(selectedCat).name}
+            </h2>
+            {selectedCat !== "All" && (
+              <p className="font-serif italic text-forest/50 mt-2 text-base">{getCollection(selectedCat).tagline}</p>
+            )}
+          </div>
+
+          {/* Filter bar — scroll on mobile */}
+          <div className="flex gap-2 overflow-x-auto pb-2 mb-10 justify-start lg:justify-center scrollbar-thin">
+            <button onClick={() => setSelectedCat("All")}
+              className={`flex-shrink-0 px-5 py-2 text-[10px] uppercase font-sans font-bold tracking-widest border transition-all duration-300 ${selectedCat === "All" ? "bg-forest border-forest text-cream" : "bg-transparent border-gold/25 text-charcoal/65 hover:border-forest/40 hover:text-forest"}`}>
+              All
+            </button>
+            {COLLECTIONS.map(col => (
+              <button key={col.id} onClick={() => setSelectedCat(col.id)}
+                className={`flex-shrink-0 px-4 py-2 text-[10px] uppercase font-sans font-bold tracking-widest border transition-all duration-300 text-cream ${selectedCat === col.id ? col.filterClass : "bg-transparent border-gold/25 text-charcoal/65 hover:border-gold/50"}`}
+                style={selectedCat === col.id ? {} : { color: col.accent, borderColor: col.accent + "40" }}>
+                {col.icon} {col.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {filtered.length > 0 ? filtered.map(p => (
+              <ProductCard key={p.id} p={p} onAddCart={addToCart} onWish={toggleWish} isWished={wishlist.includes(p.id)} onQuickLook={setQuickLook}/>
+            )) : (
+              <div className="col-span-full py-20 text-center">
+                <p className="font-serif text-lg text-forest/50 italic">No pieces found.</p>
+                <button onClick={() => { setSelectedCat("All"); setSearchQuery(""); }} className="mt-4 text-[11px] uppercase tracking-widest text-forest border-b border-forest font-sans font-bold">View All</button>
               </div>
             )}
-          </header>
+          </div>
+        </div>
+      </section>
 
-          {/* ══════════════════════════════════════════════════════════
-              1. HERO — dark split with logo centred
-          ══════════════════════════════════════════════════════════ */}
-          <section className="relative min-h-screen w-full hero-bg flex flex-col items-center justify-center overflow-hidden">
-            {/* Decorative grid */}
-            <div className="absolute inset-0 opacity-10"
-              style={{backgroundImage:"repeating-linear-gradient(0deg,rgba(201,168,76,0.15) 0,rgba(201,168,76,0.15) 1px,transparent 1px,transparent 80px),repeating-linear-gradient(90deg,rgba(201,168,76,0.15) 0,rgba(201,168,76,0.15) 1px,transparent 1px,transparent 80px)"}}>
+      {/* ══════════════════════════════════════════════════
+          5. MAROON BANNER
+      ══════════════════════════════════════════════════ */}
+      <section className="bg-gradient-to-r from-maroon-deep via-maroon to-maroon-deep py-16 text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{backgroundImage:"repeating-linear-gradient(45deg,rgba(201,168,76,0.3) 0,rgba(201,168,76,0.3) 1px,transparent 1px,transparent 40px)"}}/>
+        <div className="relative z-10 max-w-2xl mx-auto px-6">
+          <p className="font-sans text-[10px] uppercase tracking-[0.4em] text-gold/60 mb-3">For Every Story You Carry</p>
+          <h2 className="font-display text-3xl md:text-4xl text-cream">Free alterations on every <span className="shimmer-gold">Ishara</span> piece.</h2>
+          <p className="font-serif text-base text-cream/60 italic mt-4">"No garment should constrain the story of the wearer."</p>
+          <a href="#customise" className="inline-block mt-8 bg-gold hover:bg-gold-light text-forest-deep text-[11px] uppercase tracking-widest font-sans font-bold px-10 py-3.5 transition-colors">Request Customisation</a>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          6. STYLE QUIZ — collection-aware
+      ══════════════════════════════════════════════════ */}
+      <section id="quiz" className="bg-cream-texture py-20 lg:py-28 border-t border-gold/10">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <SectionLabel text="Conversations" />
+            <h2 className="font-display text-4xl text-forest mt-2">Find Your Collection</h2>
+            <p className="font-serif italic text-forest/55 mt-1">"Let the fabric find you."</p>
+          </div>
+          {!quizDone && (
+            <div className="flex justify-center items-center gap-3 mb-8 text-[10px] uppercase tracking-widest font-sans font-semibold">
+              {["Occasion","Your Vibe","Silhouette"].map((s,i) => (
+                <React.Fragment key={s}>
+                  <span className={`pb-1 border-b-2 ${quizStep >= i+1 ? "border-forest text-forest" : "border-transparent text-charcoal/35"}`}>{s}</span>
+                  {i < 2 && <span className="text-gold/45">✦</span>}
+                </React.Fragment>
+              ))}
             </div>
-
-            {/* Radial glow */}
-            <div className="absolute inset-0 pointer-events-none" style={{background:"radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.12) 0%, transparent 60%)"}} />
-
-            {/* Corner ornaments */}
-            <div className="absolute top-8 left-8 w-16 h-16 border-t border-l border-gold/30 pointer-events-none"/>
-            <div className="absolute top-8 right-8 w-16 h-16 border-t border-r border-gold/30 pointer-events-none"/>
-            <div className="absolute bottom-8 left-8 w-16 h-16 border-b border-l border-gold/30 pointer-events-none"/>
-            <div className="absolute bottom-8 right-8 w-16 h-16 border-b border-r border-gold/30 pointer-events-none"/>
-
-            {/* Centre content */}
-            <div className="relative z-10 text-center flex flex-col items-center px-6 max-w-3xl mx-auto">
-              {/* Large Logo */}
-              <div className="fade-up float-anim mb-8">
-                <IsharaLogo size="xl" />
-              </div>
-
-              <div className="ornament w-64 mx-auto mb-8 delay-1 fade-up">
-                <span className="text-[10px] uppercase tracking-[0.4em] text-gold/70 font-sans">Est. in India</span>
-              </div>
-
-              <p className="font-serif text-lg md:text-xl text-cream/80 italic leading-relaxed max-w-lg mb-10 fade-up delay-2">
-                "Woven in legend. Painted by hand.<br/>Worn on skin that remembers."
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 fade-up delay-3">
-                <a href="#collections"
-                  className="bg-gold hover:bg-gold-light text-forest-deep text-[11px] uppercase tracking-widest font-sans font-bold px-10 py-4 transition-colors shadow-lg">
-                  Explore Collection
-                </a>
-                <a href="#quiz"
-                  className="border border-gold/50 hover:border-gold text-gold hover:bg-gold/10 text-[11px] uppercase tracking-widest font-sans font-bold px-10 py-4 transition-all">
-                  Take the Style Quiz
-                </a>
-              </div>
-
-              {/* Scroll indicator */}
-              <div className="mt-16 flex flex-col items-center gap-2 fade-up delay-4">
-                <span className="text-[10px] uppercase tracking-[0.4em] text-gold/40 font-sans">Scroll</span>
-                <div className="scroll-bounce w-px h-10 bg-gradient-to-b from-gold/50 to-transparent"/>
-              </div>
-            </div>
-
-            {/* Left floating card */}
-            <div className="hidden xl:block absolute left-12 top-1/2 -translate-y-1/2 w-52 float-anim" style={{animationDelay:"1s"}}>
-              <div className="bg-cream/5 backdrop-blur border border-gold/20 p-3">
-                <div className="aspect-[3/4] pat-2 flex flex-col justify-end p-3 border border-gold/10">
-                  <div className="bg-forest/90 p-2 border-l-2 border-gold text-cream">
-                    <p className="font-serif text-xs">Devi Temple Anarkali</p>
-                    <p className="text-gold text-[10px] mt-0.5">₹8,500</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right floating card */}
-            <div className="hidden xl:block absolute right-12 top-1/2 -translate-y-1/2 w-52 float-anim" style={{animationDelay:"2.5s"}}>
-              <div className="bg-cream/5 backdrop-blur border border-gold/20 p-3">
-                <div className="aspect-[3/4] pat-1 flex flex-col justify-end p-3 border border-gold/10">
-                  <div className="bg-forest/90 p-2 border-l-2 border-gold text-cream">
-                    <p className="font-serif text-xs">Saraswati Suit</p>
-                    <p className="text-gold text-[10px] mt-0.5">₹4,800</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════════
-              2. BRAND STORY STRIP
-          ══════════════════════════════════════════════════════════ */}
-          <section id="story" className="bg-forest relative overflow-hidden py-20 lg:py-28">
-            {/* BG pattern */}
-            <div className="absolute inset-0 opacity-5"
-              style={{backgroundImage:"radial-gradient(circle, #C9A84C 1px, transparent 1px)", backgroundSize:"40px 40px"}}/>
-
-            <div className="max-w-6xl mx-auto px-6 lg:px-10">
-              <SectionLabel text="The Ethos" light />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mt-8">
-                {/* Left: quote */}
-                <div>
-                  <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-cream leading-[1.15] font-normal">
-                    "Ishara is not just clothing. It is a{" "}
-                    <em className="shimmer-gold not-italic">gesture</em> — a hand signal passed down from our grandmothers, our rivers, our temple walls."
-                  </h2>
-                  <div className="mt-8 flex gap-4">
-                    <a href="#collections" className="text-[11px] uppercase tracking-widest font-sans font-bold text-gold border-b border-gold pb-0.5 hover:text-gold-light hover:border-gold-light transition-colors">
-                      View Collection →
-                    </a>
-                  </div>
-                </div>
-                {/* Right: 3 pillars */}
-                <div className="flex flex-col gap-8">
+          )}
+          <div className="bg-cream border-2 border-gold/20 p-8 md:p-12 shadow-xl">
+            {/* Step 1 */}
+            {!quizDone && quizStep === 1 && (
+              <div className="fade-in">
+                <h3 className="font-serif text-2xl text-forest text-center mb-8">What are you dressing for?</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {[
-                    { icon:"🕊", title:"Hand-Stitched by Karigars", desc:"Every seam constructed slowly by artisans who carry lineages of garment-craft across generations." },
-                    { icon:"🌿", title:"Pure Natural Fibres",       desc:"Organic cottons, pure mulberry silk, and hand-loomed Bengal mulmuls breathe with your body." },
-                    { icon:"🦚", title:"Prints from Sacred Stories", desc:"Block patterns carved to resemble folklore, cosmic peacocks, and ancient temple friezes." },
-                  ].map((p, i) => (
-                    <div key={i} className="flex gap-5 border-l-2 border-gold/30 pl-5">
-                      <span className="text-2xl mt-0.5">{p.icon}</span>
-                      <div>
-                        <h4 className="font-serif text-base text-gold tracking-wider mb-1">{p.title}</h4>
-                        <p className="text-xs text-cream/60 font-sans leading-relaxed tracking-wide">{p.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div className="mt-16 pt-10 border-t border-gold/15 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                {[["200+","Karigars"],["12","Craft Traditions"],["100%","Natural Fibres"],["Hand","Tailored"]].map(([n,l]) => (
-                  <div key={l}>
-                    <p className="font-display text-4xl text-gold">{n}</p>
-                    <p className="text-[10px] uppercase tracking-widest text-cream/50 font-sans mt-1">{l}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════════
-              3. COLLECTIONS GRID
-          ══════════════════════════════════════════════════════════ */}
-          <section id="collections" className="bg-cream-texture py-20 lg:py-28">
-            <div className="max-w-7xl mx-auto px-6 lg:px-10">
-              <div className="text-center mb-12">
-                <SectionLabel text="Our Loom" />
-                <h2 className="font-display text-4xl lg:text-5xl text-forest mt-2">What We Make</h2>
-              </div>
-
-              {/* Filter tags */}
-              <div className="flex flex-wrap justify-center gap-2 mb-12">
-                {CATS.map(cat => (
-                  <button key={cat} onClick={() => setSelectedCat(cat)}
-                    className={`px-5 py-2 text-[10px] uppercase font-sans font-bold tracking-widest border transition-all duration-300 ${
-                      selectedCat === cat
-                        ? "bg-forest border-forest text-cream shadow-md"
-                        : "bg-transparent border-gold/30 text-charcoal/70 hover:border-forest/50 hover:text-forest"
-                    }`}>
-                    {cat}
-                  </button>
-                ))}
-              </div>
-
-              {/* Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {filteredProducts.length > 0 ? filteredProducts.map(p => (
-                  <ProductCard key={p.id} product={p}
-                    onAddCart={addToCart}
-                    onWishlist={toggleWish}
-                    isWishlisted={wishlist.includes(p.id)}
-                    onQuickLook={setQuickLook}
-                  />
-                )) : (
-                  <div className="col-span-full py-20 text-center">
-                    <p className="font-serif text-lg text-forest/60 italic">No pieces match this search.</p>
-                    <button onClick={() => { setSelectedCat("All"); setSearchQuery(""); }} className="mt-4 text-[11px] uppercase tracking-widest text-forest border-b border-forest font-sans font-bold">
-                      View All
+                    { l:"A quiet festive morning",          d:"Soaked in incense and sunshine",        i:"🌅" },
+                    { l:"Everyday ease and comfort",         d:"Moving smoothly like water",            i:"🌿" },
+                    { l:"A special occasion or celebration", d:"Temple lights and laughing eyes",       i:"🪔" },
+                    { l:"Something just for yourself",       d:"A cozy balcony afternoon",             i:"🌙" },
+                  ].map(opt => (
+                    <button key={opt.l} onClick={() => { setQuizAns(a => ({...a,step1:opt.l})); setQuizStep(2); }}
+                      className="flex items-center gap-4 text-left border border-gold/25 p-4 hover:border-forest hover:bg-forest/5 transition-all group">
+                      <span className="text-3xl group-hover:scale-110 transition-transform">{opt.i}</span>
+                      <div><h4 className="font-serif text-sm text-forest font-semibold">{opt.l}</h4><p className="text-[10px] text-forest/45 mt-0.5 font-sans">{opt.d}</p></div>
                     </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════════
-              4. FULL-WIDTH MAROON BANNER
-          ══════════════════════════════════════════════════════════ */}
-          <section className="bg-gradient-to-r from-maroon-deep via-maroon to-maroon-deep py-16 lg:py-20 text-center relative overflow-hidden">
-            <div className="absolute inset-0 opacity-10" style={{backgroundImage:"repeating-linear-gradient(45deg, rgba(201,168,76,0.3) 0, rgba(201,168,76,0.3) 1px, transparent 1px, transparent 40px)"}}/>
-            <div className="relative z-10 max-w-3xl mx-auto px-6">
-              <p className="font-sans text-[10px] uppercase tracking-[0.4em] text-gold/70 mb-3">Limited Edition</p>
-              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-cream leading-tight">
-                Free alterations on every <span className="shimmer-gold">Ishara</span> piece.
-              </h2>
-              <p className="font-serif text-base text-cream/70 italic mt-4">
-                "No garment should constrain the story of the wearer."
-              </p>
-              <a href="#customise" className="inline-block mt-8 bg-gold hover:bg-gold-light text-forest-deep text-[11px] uppercase tracking-widest font-sans font-bold px-10 py-3.5 transition-colors">
-                Request Customisation
-              </a>
-            </div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════════
-              5. PRINT UNIVERSE
-          ══════════════════════════════════════════════════════════ */}
-          <section id="prints" className="bg-forest-deep py-20 lg:py-28 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6 lg:px-10">
-              <div className="mb-12 text-center">
-                <SectionLabel text="Our Mythology" light />
-                <h2 className="font-display text-4xl lg:text-5xl text-cream mt-2">Every print carries<br/>a story older than time.</h2>
-                <p className="font-serif italic text-gold/70 mt-3 text-base">Carved on blocks. Pressed by palm. Preserved in weave.</p>
-              </div>
-
-              <div className="flex gap-5 overflow-x-auto pb-6 scrollbar-thin snap-x snap-mandatory">
-                {PRINTS.map((pr, i) => (
-                  <div key={i} className="flex-shrink-0 w-72 bg-forest/60 border border-gold/20 p-6 snap-start flex flex-col gap-5 hover:border-gold/50 transition-colors">
-                    <div className="text-4xl">{pr.icon}</div>
-                    <div>
-                      <h3 className="font-serif text-xl text-gold tracking-wide">{pr.title}</h3>
-                      <p className="font-sans text-xs text-cream/60 leading-relaxed mt-2">{pr.desc}</p>
-                    </div>
-                    <div className={`mt-auto h-32 ${pr.pat} border border-gold/10 relative overflow-hidden group`}>
-                      <div className="absolute inset-0 bg-forest/40 group-hover:bg-transparent transition-colors duration-300"/>
-                      <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-widest font-bold bg-forest/90 px-2 py-0.5 text-gold border border-gold/20">
-                        Swatch
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════════
-              6. STYLE QUIZ
-          ══════════════════════════════════════════════════════════ */}
-          <section id="quiz" className="bg-cream-texture py-20 lg:py-28 border-t border-gold/10">
-            <div className="max-w-3xl mx-auto px-6">
-              <div className="text-center mb-10">
-                <SectionLabel text="Conversations" />
-                <h2 className="font-display text-4xl text-forest mt-2">Find Your Ishara</h2>
-                <p className="font-serif italic text-forest/60 mt-1">"Let the fabric find you."</p>
-              </div>
-
-              {/* Progress */}
-              {!quizDone && (
-                <div className="flex justify-center items-center gap-3 mb-8 text-[10px] uppercase tracking-widest font-sans font-semibold">
-                  {["Occasion","Feeling","Silhouette"].map((s, i) => (
-                    <React.Fragment key={s}>
-                      <span className={`pb-1 border-b-2 ${quizStep >= i+1 ? "border-forest text-forest" : "border-transparent text-charcoal/40"}`}>{s}</span>
-                      {i < 2 && <span className="text-gold/50">✦</span>}
-                    </React.Fragment>
                   ))}
                 </div>
-              )}
+              </div>
+            )}
 
-              <div className="bg-cream border-2 border-gold/20 p-8 md:p-12 shadow-xl">
-                {/* Step 1 */}
-                {!quizDone && quizStep === 1 && (
-                  <div className="fade-in">
-                    <h3 className="font-serif text-2xl text-forest text-center mb-8">What are you dressing for?</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {[
-                        { label:"A quiet festive morning",          desc:"Soaked in incense and sunshine",       icon:"🌅" },
-                        { label:"Everyday ease and comfort",         desc:"Moving smoothly like water",           icon:"🌿" },
-                        { label:"A celebration that deserves a story",desc:"Temple lights and laughing eyes",     icon:"🪔" },
-                        { label:"Something just for yourself",        desc:"A cozy haveli balcony afternoon",     icon:"🌙" },
-                      ].map(opt => (
-                        <button key={opt.label} onClick={() => { setQuizAns(a => ({...a,step1:opt.label})); setQuizStep(2); }}
-                          className="flex items-center gap-4 text-left border border-gold/25 p-4 hover:border-forest hover:bg-forest/5 transition-all group">
-                          <span className="text-3xl group-hover:scale-110 transition-transform">{opt.icon}</span>
-                          <div>
-                            <h4 className="font-serif text-sm text-forest font-semibold">{opt.label}</h4>
-                            <p className="text-[10px] text-forest/50 mt-0.5 font-sans">{opt.desc}</p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
+            {/* Step 2 — collection-based */}
+            {!quizDone && quizStep === 2 && (
+              <div className="fade-in">
+                <h3 className="font-serif text-2xl text-forest text-center mb-8">What draws you most?</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {[
+                    { l:"Floral prints & garden motifs",    d:"Gulnaar Collection — blooms in every thread",    i:"🌸", v:"floral" },
+                    { l:"Soft pastel & gentle hues",        d:"Noor-e-Pastels — soft light, softer stories",    i:"🌷", v:"pastel" },
+                    { l:"Warm yellows & sunshine tones",    d:"Sunshine Palette — warm as the first ray",       i:"☀️", v:"warm" },
+                    { l:"Art & human-figure silhouettes",   d:"Art Wear — when cloth becomes canvas",           i:"🎨", v:"art" },
+                    { l:"Birds & winged nature motifs",     d:"Winged Collection — free as feather",            i:"🦚", v:"bird" },
+                    { l:"Premium & occasion luxury wear",   d:"Premium Affair — crafted for those who know",    i:"✦", v:"Occasion" },
+                  ].map(opt => (
+                    <button key={opt.l} onClick={() => { setQuizAns(a => ({...a,step2:opt.v})); setQuizStep(3); }}
+                      className="flex items-center gap-4 text-left border border-gold/25 p-4 hover:border-forest hover:bg-forest/5 transition-all group">
+                      <span className="text-2xl group-hover:scale-110 transition-transform">{opt.i}</span>
+                      <div><h4 className="font-serif text-sm text-forest font-semibold">{opt.l}</h4><p className="text-[10px] text-forest/45 mt-0.5 font-sans">{opt.d}</p></div>
+                    </button>
+                  ))}
+                </div>
+                <button onClick={() => setQuizStep(1)} className="mt-6 text-[10px] uppercase tracking-widest text-forest/45 hover:text-forest font-sans font-semibold">← Back</button>
+              </div>
+            )}
+
+            {/* Step 3 */}
+            {!quizDone && quizStep === 3 && (
+              <div className="fade-in">
+                <h3 className="font-serif text-2xl text-forest text-center mb-2">What is your silhouette?</h3>
+                <p className="text-[11px] text-center text-forest/45 italic mb-8 font-sans">We measure in poise, not numbers.</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {["Petite & delicate","Balanced & graceful","Full & flowing","Tall & elongated"].map(opt => (
+                    <button key={opt} onClick={() => { setQuizAns(a => ({...a,step3:opt})); setQuizDone(true); }}
+                      className="flex flex-col items-center text-center border border-gold/25 p-6 hover:border-forest hover:bg-forest/5 transition-all">
+                      <h4 className="font-serif text-base text-forest font-semibold">{opt}</h4>
+                    </button>
+                  ))}
+                </div>
+                <button onClick={() => setQuizStep(2)} className="mt-6 text-[10px] uppercase tracking-widest text-forest/45 hover:text-forest font-sans font-semibold">← Back</button>
+              </div>
+            )}
+
+            {/* Result */}
+            {quizDone && (() => {
+              const rec = getQuizRec();
+              return (
+                <div className="fade-in text-center">
+                  <span className="text-4xl">{rec.col.icon}</span>
+                  <h3 className="font-serif text-3xl text-forest mt-4 mb-1">Your Perfect Match</h3>
+                  <p className="font-display text-2xl mt-1 mb-6" style={{ color: rec.col.accent }}>{rec.col.name}</p>
+                  <div className="max-w-sm mx-auto p-5 border mb-8" style={{ borderColor: rec.col.accent + "40", background: rec.col.accent + "08" }}>
+                    <p className="font-serif italic text-sm text-forest/70 leading-relaxed">{rec.col.desc}</p>
+                    <p className="text-[10px] uppercase tracking-widest font-sans font-bold mt-3" style={{ color: rec.col.accent }}>{rec.col.theme}</p>
                   </div>
-                )}
-
-                {/* Step 2 */}
-                {!quizDone && quizStep === 2 && (
-                  <div className="fade-in">
-                    <h3 className="font-serif text-2xl text-forest text-center mb-8">How do you like to feel?</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {[
-                        { label:"Light as a Mulmul breath",   desc:"Pure Mulmul tailored gently",          icon:"🌬" },
-                        { label:"Grounded in Cotton structure",desc:"Desert Khadi and slub cotton weaves",  icon:"🧵" },
-                        { label:"Rich and luminous in Silk",   desc:"Kora Silk and Bengal Tussar threads",  icon:"✨" },
-                        { label:"Close to craft and Hand-Stitched",desc:"Artisanal stitching and block textures", icon:"🤲" },
-                      ].map(opt => (
-                        <button key={opt.label} onClick={() => { setQuizAns(a => ({...a,step2:opt.label})); setQuizStep(3); }}
-                          className="flex items-center gap-4 text-left border border-gold/25 p-4 hover:border-forest hover:bg-forest/5 transition-all group">
-                          <span className="text-3xl group-hover:scale-110 transition-transform">{opt.icon}</span>
-                          <div>
-                            <h4 className="font-serif text-sm text-forest font-semibold">{opt.label}</h4>
-                            <p className="text-[10px] text-forest/50 mt-0.5 font-sans">{opt.desc}</p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                    <button onClick={() => setQuizStep(1)} className="mt-6 text-[10px] uppercase tracking-widest text-forest/50 hover:text-forest font-sans font-semibold">← Back</button>
-                  </div>
-                )}
-
-                {/* Step 3 */}
-                {!quizDone && quizStep === 3 && (
-                  <div className="fade-in">
-                    <h3 className="font-serif text-2xl text-forest text-center mb-2">What is your silhouette?</h3>
-                    <p className="text-[11px] text-center text-forest/50 italic mb-8 font-sans">We measure in poise, not numbers.</p>
-                    <div className="grid grid-cols-2 gap-3">
-                      {["Petite & delicate","Balanced & graceful","Full & flowing","Tall & elongated"].map(opt => (
-                        <button key={opt} onClick={() => { setQuizAns(a => ({...a,step3:opt})); setQuizDone(true); }}
-                          className="flex flex-col items-center text-center border border-gold/25 p-6 hover:border-forest hover:bg-forest/5 transition-all">
-                          <h4 className="font-serif text-base text-forest font-semibold">{opt}</h4>
-                        </button>
-                      ))}
-                    </div>
-                    <button onClick={() => setQuizStep(2)} className="mt-6 text-[10px] uppercase tracking-widest text-forest/50 hover:text-forest font-sans font-semibold">← Back</button>
-                  </div>
-                )}
-
-                {/* Result */}
-                {quizDone && (
-                  <div className="fade-in text-center">
-                    <span className="text-4xl">🦚</span>
-                    <h3 className="font-serif text-3xl text-forest mt-4 mb-2">The Loom Has Answered</h3>
-                    <div className="my-6 max-w-sm mx-auto p-5 bg-cream/70 border border-gold/25">
-                      <p className="text-[10px] uppercase tracking-widest text-forest/50 font-sans font-bold">Recommended Fabric</p>
-                      <h4 className="font-display text-2xl text-gold mt-1">{getQuizRec().fabric}</h4>
-                      <div className="w-10 h-px bg-gold mx-auto my-3"/>
-                      <p className="text-xs text-charcoal/70 font-sans leading-relaxed">
-                        For <strong className="text-forest">"{quizAns.step1}"</strong>, feeling{" "}
-                        <strong className="text-forest">"{quizAns.step2}"</strong>, dressed for your{" "}
-                        <strong className="text-forest">"{quizAns.step3}"</strong> build.
-                      </p>
-                    </div>
-
-                    <h4 className="font-sans text-[10px] uppercase tracking-widest text-forest font-bold mb-4">Matches Selected For You</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 text-left">
-                      {getQuizRec().matches.slice(0,3).map(item => (
-                        <div key={item.id} className="border border-gold/20 p-2 bg-cream">
-                          <div className={`h-24 ${item.pat} border border-gold/10`}/>
-                          <div className="mt-2">
-                            <p className="font-serif text-xs text-forest font-semibold truncate">{item.name}</p>
-                            <div className="flex justify-between items-center mt-1">
-                              <span className="text-[10px] text-gold font-bold font-sans">₹{item.price.toLocaleString("en-IN")}</span>
-                              <button onClick={() => addToCart(item, quizAns.step3 || "Standard")} className="text-[9px] bg-forest text-cream px-2 py-1 uppercase tracking-wider font-sans font-bold hover:bg-forest-deep">
-                                Add
-                              </button>
-                            </div>
+                  <h4 className="font-sans text-[10px] uppercase tracking-widest font-bold mb-4" style={{ color: rec.col.accent }}>Pieces Selected for You</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 text-left">
+                    {rec.matches.slice(0,3).map(item => (
+                      <div key={item.id} className="border border-gold/20 p-2 bg-cream">
+                        <div className={`h-24 ${item.pat} border border-gold/10`}/>
+                        <div className="mt-2">
+                          <p className="font-serif text-xs text-forest font-semibold truncate">{item.name}</p>
+                          <div className="flex justify-between items-center mt-1">
+                            <span className="text-[10px] font-bold font-sans" style={{ color: rec.col.accent }}>₹{item.price.toLocaleString("en-IN")}</span>
+                            <button onClick={() => addToCart(item, quizAns.step3 || "Standard")} className="text-[9px] text-cream px-2 py-1 uppercase tracking-wider font-sans font-bold" style={{ background: rec.col.accent }}>Add</button>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                    <button onClick={() => { setQuizDone(false); setQuizStep(1); setQuizAns({}); }} className="text-[10px] uppercase tracking-widest text-forest/60 border-b border-forest/30 font-sans font-semibold hover:text-forest">
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex justify-center gap-6">
+                    <button onClick={() => handleCollectionClick(rec.col.id)} className="text-[11px] uppercase tracking-widest font-sans font-bold border-b pb-0.5" style={{ color: rec.col.accent, borderColor: rec.col.accent }}>
+                      View Full Collection →
+                    </button>
+                    <button onClick={() => { setQuizDone(false); setQuizStep(1); setQuizAns({}); }} className="text-[10px] uppercase tracking-widest text-forest/45 border-b border-forest/25 font-sans font-semibold hover:text-forest">
                       Start Again
                     </button>
                   </div>
-                )}
-              </div>
-            </div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════════
-              7. CUSTOMISATION
-          ══════════════════════════════════════════════════════════ */}
-          <section id="customise" className="bg-forest py-20 lg:py-28 relative overflow-hidden">
-            <div className="absolute inset-0 opacity-5" style={{backgroundImage:"radial-gradient(circle, #C9A84C 1.5px, transparent 1.5px)", backgroundSize:"30px 30px"}}/>
-            <div className="max-w-5xl mx-auto px-6 lg:px-10 relative z-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                {/* Left */}
-                <div>
-                  <SectionLabel text="Karigar Alteration" light />
-                  <h2 className="font-display text-4xl text-cream mt-3 leading-tight">Every Ishara piece can be yours — <span className="shimmer-gold">truly.</span></h2>
-                  <div className="w-12 h-px bg-gold/50 my-6"/>
-                  <p className="font-serif italic text-cream/70 text-base leading-relaxed">
-                    "No garment should constrain the story of the wearer. Share your measurements or request customised cuts. Our karigars will tailor pieces to your whisper."
-                  </p>
-                  <p className="text-[11px] font-sans text-gold/70 mt-5 tracking-wide">
-                    ✦ Alterations and custom dimensions are completed at no extra fee.
-                  </p>
                 </div>
+              );
+            })()}
+          </div>
+        </div>
+      </section>
 
-                {/* Right: Form */}
-                <div className="bg-cream border border-gold/20 p-8 shadow-2xl">
-                  {customSuccess ? (
-                    <div className="py-12 text-center fade-in">
-                      <span className="text-4xl">✂️</span>
-                      <h4 className="font-serif text-xl font-bold text-forest mt-4 mb-2">Request Received</h4>
-                      <p className="font-serif italic text-forest/60 text-sm">
-                        "We have taken your measures to heart. An artisan will reach out shortly."
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleCustomSubmit} className="space-y-4">
-                      <div className="grid grid-cols-3 gap-2">
-                        {["Choose Your Neckline","Request a Colour","Custom Measurements"].map(opt => (
-                          <button type="button" key={opt} onClick={() => setCustomForm(f => ({...f, option: opt}))}
-                            className={`py-2 text-[9px] uppercase font-bold tracking-widest border transition-all font-sans ${
-                              customForm.option === opt ? "bg-forest border-forest text-cream" : "border-gold/30 text-charcoal/60 hover:border-forest/50"
-                            }`}>
-                            {opt}
-                          </button>
-                        ))}
-                      </div>
-
-                      {[
-                        { label:"Your Name", key:"name", type:"text", placeholder:"e.g. Arundhati Roy" },
-                        { label:"WhatsApp / Phone", key:"contact", type:"text", placeholder:"e.g. +91 98765 43210" },
-                      ].map(f => (
-                        <div key={f.key}>
-                          <label className="block text-[10px] uppercase font-bold tracking-wider text-forest/70 mb-1 font-sans">{f.label}</label>
-                          <input type={f.type} required value={customForm[f.key]} placeholder={f.placeholder}
-                            onChange={e => setCustomForm(c => ({...c, [f.key]: e.target.value}))}
-                            className="w-full bg-cream-warm border border-gold/30 px-3 py-2.5 text-xs outline-none focus:border-forest font-sans"/>
-                        </div>
-                      ))}
-
-                      <div>
-                        <label className="block text-[10px] uppercase font-bold tracking-wider text-forest/70 mb-1 font-sans">Customisation Details</label>
-                        <textarea rows="3" value={customForm.detail} onChange={e => setCustomForm(c => ({...c, detail:e.target.value}))}
-                          placeholder="Describe your customisation request…"
-                          className="w-full bg-cream-warm border border-gold/30 px-3 py-2.5 text-xs outline-none focus:border-forest font-sans resize-none"/>
-                      </div>
-
-                      <button type="submit" className="w-full bg-forest hover:bg-forest-deep text-cream py-3.5 text-[11px] font-bold uppercase tracking-widest font-sans transition-colors shadow-md">
-                        Send Your Ishara Request
+      {/* ══════════════════════════════════════════════════
+          7. CUSTOMISATION
+      ══════════════════════════════════════════════════ */}
+      <section id="customise" className="bg-forest py-20 lg:py-28 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{backgroundImage:"radial-gradient(circle,#C9A84C 1.5px,transparent 1.5px)",backgroundSize:"30px 30px"}}/>
+        <div className="max-w-5xl mx-auto px-6 lg:px-10 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <SectionLabel text="Karigar Alteration" light />
+              <h2 className="font-display text-4xl text-cream mt-3 leading-tight">Every Ishara piece can be yours — <span className="shimmer-gold">truly.</span></h2>
+              <div className="w-12 h-px bg-gold/50 my-6"/>
+              <p className="font-serif italic text-cream/65 text-base leading-relaxed">
+                "No garment should constrain the story of the wearer. Share your measurements or request customised cuts. Our karigars will tailor pieces to your whisper."
+              </p>
+              <p className="text-[11px] font-sans text-gold/65 mt-5 tracking-wide">✦ Alterations and custom dimensions at no extra fee.</p>
+            </div>
+            <div className="bg-cream border border-gold/20 p-8 shadow-2xl">
+              {customSuccess ? (
+                <div className="py-12 text-center fade-in">
+                  <span className="text-4xl">✂️</span>
+                  <h4 className="font-serif text-xl font-bold text-forest mt-4 mb-2">Request Received</h4>
+                  <p className="font-serif italic text-forest/55 text-sm">"We have taken your measures to heart. An artisan will reach out shortly."</p>
+                </div>
+              ) : (
+                <form onSubmit={handleCustomSubmit} className="space-y-4">
+                  <div className="grid grid-cols-3 gap-2">
+                    {["Choose Your Neckline","Request a Colour","Custom Measurements"].map(opt => (
+                      <button type="button" key={opt} onClick={() => setCustomForm(f => ({...f,option:opt}))}
+                        className={`py-2 text-[9px] uppercase font-bold tracking-widest border transition-all font-sans ${customForm.option === opt ? "bg-forest border-forest text-cream" : "border-gold/25 text-charcoal/55 hover:border-forest/45"}`}>
+                        {opt}
                       </button>
-                    </form>
-                  )}
+                    ))}
+                  </div>
+                  {[{l:"Your Name",k:"name",t:"text",ph:"e.g. Arundhati Roy"},{l:"WhatsApp / Phone",k:"contact",t:"text",ph:"e.g. +91 98765 43210"}].map(f => (
+                    <div key={f.k}>
+                      <label className="block text-[10px] uppercase font-bold tracking-wider text-forest/65 mb-1 font-sans">{f.l}</label>
+                      <input type={f.t} required value={customForm[f.k]} placeholder={f.ph} onChange={e => setCustomForm(c => ({...c,[f.k]:e.target.value}))} className="w-full bg-cream-warm border border-gold/30 px-3 py-2.5 text-xs outline-none focus:border-forest font-sans"/>
+                    </div>
+                  ))}
+                  <div>
+                    <label className="block text-[10px] uppercase font-bold tracking-wider text-forest/65 mb-1 font-sans">Customisation Details</label>
+                    <textarea rows="3" value={customForm.detail} onChange={e => setCustomForm(c => ({...c,detail:e.target.value}))} placeholder="Describe your request — fabric, neckline, measurements…" className="w-full bg-cream-warm border border-gold/30 px-3 py-2.5 text-xs outline-none focus:border-forest font-sans resize-none"/>
+                  </div>
+                  <button type="submit" className="w-full bg-forest hover:bg-forest-deep text-cream py-3.5 text-[11px] font-bold uppercase tracking-widest font-sans transition-colors shadow-md">
+                    Send Your Ishara Request
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          8. FOOTER
+      ══════════════════════════════════════════════════ */}
+      <footer className="bg-forest-deep text-cream border-t border-gold/20 pt-16 pb-8">
+        <div className="flex justify-center mb-10"><IsharaLogo size="lg" light /></div>
+        {/* Collection mini-links */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12 px-6">
+          {COLLECTIONS.map(col => (
+            <button key={col.id} onClick={() => { handleCollectionClick(col.id); }}
+              className="text-[9px] uppercase tracking-widest font-sans font-bold border px-3 py-1 transition-colors"
+              style={{ color: col.accentLight, borderColor: col.accentLight + "35" }}>
+              {col.icon} {col.name}
+            </button>
+          ))}
+        </div>
+        <div className="max-w-6xl mx-auto px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-gold/10">
+          <div>
+            <p className="font-serif italic text-sm text-cream/55 max-w-xs leading-relaxed">"A gesture. A garment. A story." — Six collections for six moods, crafted for those who carry heritage forward.</p>
+            <div className="flex gap-4 mt-6">
+              {["Instagram","Pinterest","WhatsApp"].map(s => (
+                <span key={s} className="text-[10px] uppercase tracking-widest text-gold/55 hover:text-gold cursor-pointer font-sans font-semibold transition-colors">{s}</span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 className="font-serif text-gold tracking-wider mb-5 font-semibold">Collections</h4>
+            <div className="flex flex-col gap-2.5 font-sans text-xs text-cream/45">
+              {COLLECTIONS.map(col => (
+                <button key={col.id} onClick={() => handleCollectionClick(col.id)} className="text-left hover:text-gold transition-colors">{col.icon} {col.name}</button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 className="font-serif text-gold tracking-wider mb-5 font-semibold">Join the Circle</h4>
+            <p className="font-sans text-xs text-cream/45 mb-4 leading-relaxed">Receive whispers of new collections, prints and karigar stories.</p>
+            <div className="flex border border-gold/20 bg-forest/50">
+              <input type="email" placeholder="Your email" className="bg-transparent px-3 py-2.5 text-xs outline-none w-full text-cream placeholder-cream/25 font-sans"/>
+              <button onClick={() => triggerToast("You are now in the circle.")} className="bg-gold hover:bg-gold-light text-forest-deep px-4 text-[10px] font-bold uppercase tracking-widest font-sans transition-colors whitespace-nowrap">Join</button>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-6xl mx-auto px-6 lg:px-10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-cream/25 font-sans tracking-wider uppercase">
+          <span>© {new Date().getFullYear()} ISHARA Apparels. All rights reserved.</span>
+          <span className="text-gold/50 font-serif text-xs not-italic">Made with love in India 🇮🇳</span>
+        </div>
+      </footer>
+
+      {/* ══════════════════════════════════════════════════ CART ══ */}
+      {isCartOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end bg-charcoal/60 backdrop-blur-sm fade-in">
+          <div className="absolute inset-0 cursor-pointer" onClick={() => setIsCartOpen(false)}/>
+          <div className="relative w-full max-w-md bg-cream h-full flex flex-col shadow-2xl border-l border-gold/15 z-10">
+            <div className="flex justify-between items-center px-6 py-5 border-b border-gold/12">
+              <h3 className="font-serif text-xl text-forest font-semibold">Your Circle ({cart.length})</h3>
+              <button onClick={() => setIsCartOpen(false)} className="text-charcoal/45 hover:text-forest text-2xl" aria-label="Close">×</button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              {cart.length === 0 ? (
+                <div className="py-20 text-center">
+                  <span className="text-4xl">🌾</span>
+                  <p className="font-serif italic text-forest/45 mt-4 text-sm">Your circle is empty. Find pieces that echo your story.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {cart.map(item => {
+                    const col = getCollection(item.collection);
+                    return (
+                      <div key={item.key} className="flex gap-4 border border-gold/12 p-3 bg-white relative" style={{ borderLeft:`3px solid ${col.accent}` }}>
+                        <div className={`w-16 h-20 ${item.pat} flex-shrink-0 border border-gold/10`}/>
+                        <div className="flex-grow flex flex-col justify-between">
+                          <div>
+                            <p className="text-[9px] uppercase font-sans font-bold" style={{ color: col.accent }}>{col.name}</p>
+                            <h4 className="font-serif text-sm font-semibold text-forest">{item.name}</h4>
+                            <p className="text-[10px] text-charcoal/45 font-sans mt-0.5">{item.fabric}</p>
+                          </div>
+                          <div className="flex items-center justify-between mt-2">
+                            <div className="flex items-center border border-gold/15 text-[11px]">
+                              <button onClick={() => updateQty(item.key,-1)} className="px-2 py-0.5 hover:text-forest">-</button>
+                              <span className="px-2 py-0.5 font-bold font-sans">{item.quantity}</span>
+                              <button onClick={() => updateQty(item.key, 1)} className="px-2 py-0.5 hover:text-forest">+</button>
+                            </div>
+                            <span className="font-sans text-xs font-bold text-charcoal">₹{(item.price*item.quantity).toLocaleString("en-IN")}</span>
+                          </div>
+                        </div>
+                        <button onClick={() => removeFromCart(item.key)} className="absolute top-2 right-2 text-charcoal/35 hover:text-maroon text-base" aria-label="Remove">×</button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+            {cart.length > 0 && (
+              <div className="px-6 py-5 border-t border-gold/12">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="font-serif text-forest font-semibold">Total</span>
+                  <span className="font-sans text-lg font-bold text-forest">₹{cartTotal.toLocaleString("en-IN")}</span>
+                </div>
+                <p className="text-[9px] text-charcoal/35 font-sans mb-4">✦ Complimentary alterations included. Ships twice weekly from Rajasthan.</p>
+                <button onClick={() => { triggerToast("Moving to checkout…"); setCart([]); setIsCartOpen(false); }} className="w-full bg-forest hover:bg-forest-deep text-cream py-3.5 text-[11px] font-bold uppercase tracking-widest font-sans transition-colors">Checkout</button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════ WISHLIST ══ */}
+      {isWishOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end bg-charcoal/60 backdrop-blur-sm fade-in">
+          <div className="absolute inset-0 cursor-pointer" onClick={() => setIsWishOpen(false)}/>
+          <div className="relative w-full max-w-md bg-cream h-full flex flex-col shadow-2xl border-l border-gold/15 z-10">
+            <div className="flex justify-between items-center px-6 py-5 border-b border-gold/12">
+              <h3 className="font-serif text-xl text-forest font-semibold">Wishlist ({wishlist.length})</h3>
+              <button onClick={() => setIsWishOpen(false)} className="text-charcoal/45 hover:text-forest text-2xl" aria-label="Close">×</button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              {wishlist.length === 0 ? (
+                <div className="py-20 text-center"><span className="text-4xl">🕊</span><p className="font-serif italic text-forest/45 mt-4 text-sm">No dreams saved yet.</p></div>
+              ) : (
+                <div className="space-y-4">
+                  {PRODUCTS.filter(p => wishlist.includes(p.id)).map(item => {
+                    const col = getCollection(item.collection);
+                    return (
+                      <div key={item.id} className="flex gap-4 border border-gold/12 p-3 bg-white relative" style={{ borderLeft:`3px solid ${col.accent}` }}>
+                        <div className={`w-16 h-20 ${item.pat} flex-shrink-0 border border-gold/10`}/>
+                        <div className="flex-grow flex flex-col justify-between">
+                          <div>
+                            <p className="text-[9px] uppercase font-sans font-bold" style={{ color: col.accent }}>{col.name}</p>
+                            <h4 className="font-serif text-sm font-semibold text-forest">{item.name}</h4>
+                            <p className="text-[10px] text-charcoal/45 font-sans mt-0.5">{item.fabric}</p>
+                          </div>
+                          <div className="flex items-center justify-between mt-2">
+                            <span className="font-sans text-xs font-bold text-charcoal">₹{item.price.toLocaleString("en-IN")}</span>
+                            <button onClick={() => { addToCart(item); toggleWish(item.id); }} className="text-[9px] text-cream px-3 py-1 uppercase tracking-wider font-sans font-bold" style={{ background: col.accent }}>Add to Cart</button>
+                          </div>
+                        </div>
+                        <button onClick={() => toggleWish(item.id)} className="absolute top-2 right-2 text-charcoal/35 hover:text-maroon text-base" aria-label="Remove">×</button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════ QUICK LOOK ══ */}
+      {quickLook && (() => {
+        const col = getCollection(quickLook.collection);
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-charcoal/70 backdrop-blur-sm p-4 fade-in">
+            <div className="absolute inset-0 cursor-pointer" onClick={() => setQuickLook(null)}/>
+            <div className="relative w-full max-w-2xl bg-cream border shadow-2xl z-10 flex flex-col md:flex-row overflow-hidden" style={{ borderColor: col.accent + "50", borderTopWidth:3, borderTopColor: col.accent }}>
+              <button onClick={() => setQuickLook(null)} className="absolute top-4 right-4 text-forest hover:text-maroon text-2xl font-bold z-20 leading-none" aria-label="Close">×</button>
+              <div className={`w-full md:w-1/2 min-h-[260px] md:min-h-full ${quickLook.pat} relative`}>
+                <div className="absolute bottom-3 left-3 text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 border font-sans text-cream" style={{ background: col.accent + "CC", borderColor: col.accentLight + "40" }}>
+                  {quickLook.fabric}
+                </div>
+                <div className="absolute top-3 right-3 text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 font-sans border" style={{ color: col.accentLight, borderColor: col.accentLight + "50", background:"rgba(0,0,0,0.55)" }}>
+                  {col.icon} {col.name}
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════════
-              8. ABOUT — The Hands Behind Ishara
-          ══════════════════════════════════════════════════════════ */}
-          <section className="bg-cream-texture py-20 lg:py-28 border-t border-gold/10">
-            <div className="max-w-6xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              {/* Left visual */}
-              <div className="relative">
-                <div className="absolute inset-0 border border-gold/20 translate-x-4 translate-y-4 pointer-events-none"/>
-                <div className="aspect-[4/3] pat-3 border border-gold/20 relative flex flex-col justify-end p-6">
-                  <div className="bg-forest/95 border-l-2 border-gold p-4 max-w-xs">
-                    <p className="font-serif italic text-cream/80 text-xs leading-relaxed">
-                      "Hands dye the fabrics in large copper vats, under the open sun of Jaipur."
-                    </p>
+              <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest font-sans font-bold" style={{ color: col.accent }}>{quickLook.tag}</p>
+                  <h3 className="font-display text-2xl text-forest mt-1">{quickLook.name}</h3>
+                  <p className="font-sans text-xl font-bold text-charcoal mt-1">₹{quickLook.price.toLocaleString("en-IN")}</p>
+                  <div className="w-8 h-px my-4" style={{ background: col.accent }}/>
+                  <p className="font-serif italic text-sm text-forest/65 leading-relaxed">"{quickLook.desc}"</p>
+                  <div className="mt-4 bg-cream-warm p-3 border border-gold/12 text-[11px] text-charcoal/65 font-sans space-y-1">
+                    <p><strong>Fabric:</strong> {quickLook.fabric}</p>
+                    <p><strong>Care:</strong> {quickLook.specs}</p>
                   </div>
                 </div>
-              </div>
-
-              {/* Right text */}
-              <div>
-                <SectionLabel text="Our Origins" />
-                <h2 className="font-display text-3xl md:text-4xl text-forest mt-2 leading-tight">The Hands Behind Ishara</h2>
-                <p className="font-serif italic text-lg text-forest/70 leading-relaxed mt-6">
-                  "Ishara was born in a room full of thread and sunlight. We are not a factory. We are a circle of hands — karigars, painters, weavers — who believe that a garment should carry memory."
-                </p>
-                <p className="font-sans text-xs text-charcoal/60 leading-relaxed mt-4 tracking-wide">
-                  Our pieces are built locally, supporting weavers across Bengal, Rajasthan, and Madhya Pradesh. Each pattern is stamped using organic dye pigments extracted from clay, madder roots, indigo, and marigold flowers.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* ══════════════════════════════════════════════════════════
-              9. FOOTER
-          ══════════════════════════════════════════════════════════ */}
-          <footer className="bg-forest-deep text-cream border-t border-gold/20 pt-16 pb-8">
-            {/* Logo centre */}
-            <div className="flex justify-center mb-12">
-              <IsharaLogo size="lg" />
-            </div>
-
-            <div className="max-w-6xl mx-auto px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-gold/10">
-              {/* Brand */}
-              <div>
-                <p className="font-serif italic text-sm text-cream/60 max-w-xs leading-relaxed">
-                  "A gesture. A garment. A story." — An exploration of old-world silhouettes and hand-loomed textiles, crafted for those who carry heritage forward.
-                </p>
-                <div className="flex gap-4 mt-6">
-                  {["Instagram","Pinterest","WhatsApp"].map(s => (
-                    <span key={s} className="text-[10px] uppercase tracking-widest text-gold/60 hover:text-gold cursor-pointer font-sans font-semibold transition-colors">{s}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Links */}
-              <div>
-                <h4 className="font-serif text-gold tracking-wider mb-5 font-semibold">Quick Inquiries</h4>
-                <div className="flex flex-col gap-3 font-sans text-xs text-cream/50">
-                  {[["#collections","Catalog Overview"],["#story","Karigar Lineages"],["#quiz","Fabric Consultation"],["#customise","Sizing & Alterations"]].map(([href, label]) => (
-                    <a key={label} href={href} className="hover:text-gold transition-colors">{label}</a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Newsletter */}
-              <div>
-                <h4 className="font-serif text-gold tracking-wider mb-5 font-semibold">Join the Circle</h4>
-                <p className="font-sans text-xs text-cream/50 mb-4 leading-relaxed">Receive whispers of new collections and block print profiles.</p>
-                <div className="flex border border-gold/25 bg-forest/50">
-                  <input type="email" placeholder="Your email" className="bg-transparent px-3 py-2.5 text-xs outline-none w-full text-cream placeholder-cream/30 font-sans"/>
-                  <button onClick={() => triggerToast("You are now in the circle.")} className="bg-gold hover:bg-gold-light text-forest-deep px-4 text-[10px] font-bold uppercase tracking-widest font-sans transition-colors whitespace-nowrap">
-                    Join
+                <div className="flex gap-3 mt-6">
+                  <button onClick={() => { addToCart(quickLook); setQuickLook(null); }} className="flex-1 text-cream py-3 text-[11px] uppercase tracking-widest font-sans font-bold transition-colors" style={{ background: col.accent }}>
+                    Add to Cart
+                  </button>
+                  <button onClick={() => toggleWish(quickLook.id)} className="p-3 border transition-colors" style={{ borderColor: wishlist.includes(quickLook.id) ? col.accent : "rgba(201,168,76,0.25)", background: wishlist.includes(quickLook.id) ? col.accent + "15" : "transparent", color: wishlist.includes(quickLook.id) ? col.accent : "rgba(28,26,24,0.4)" }} aria-label="Wishlist">
+                    <svg className="w-4 h-4" fill={wishlist.includes(quickLook.id) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
                   </button>
                 </div>
               </div>
             </div>
+          </div>
+        );
+      })()}
 
-            {/* Bottom bar */}
-            <div className="max-w-6xl mx-auto px-6 lg:px-10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-cream/30 font-sans tracking-wider uppercase">
-              <span>© {new Date().getFullYear()} ISHARA Apparels. All rights reserved.</span>
-              <span className="text-gold/60 font-serif text-xs not-italic">Made with love in India 🇮🇳</span>
-            </div>
-          </footer>
+    </div>
+  );
+}
 
-          {/* ══════════════════════════════════════════════════════════
-              CART DRAWER
-          ══════════════════════════════════════════════════════════ */}
-          {isCartOpen && (
-            <div className="fixed inset-0 z-50 flex justify-end bg-charcoal/60 backdrop-blur-sm fade-in">
-              <div className="absolute inset-0 cursor-pointer" onClick={() => setIsCartOpen(false)}/>
-              <div className="relative w-full max-w-md bg-cream h-full flex flex-col shadow-2xl border-l border-gold/20 z-10">
-                <div className="flex justify-between items-center px-6 py-5 border-b border-gold/15">
-                  <h3 className="font-serif text-xl text-forest font-semibold">Your Circle ({cart.length})</h3>
-                  <button onClick={() => setIsCartOpen(false)} className="text-charcoal/50 hover:text-forest text-2xl" aria-label="Close">×</button>
-                </div>
-
-                <div className="flex-1 overflow-y-auto p-6">
-                  {cart.length === 0 ? (
-                    <div className="py-20 text-center">
-                      <span className="text-4xl">🌾</span>
-                      <p className="font-serif italic text-forest/50 mt-4 text-sm">Your circle is empty. Find fabrics that echo.</p>
-                      <button onClick={() => { setIsCartOpen(false); }} className="mt-5 bg-forest text-cream text-[10px] uppercase font-bold tracking-widest px-6 py-2.5 font-sans hover:bg-forest-deep">
-                        Explore Collection
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {cart.map(item => (
-                        <div key={item.key} className="flex gap-4 border border-gold/15 p-3 bg-white relative">
-                          <div className={`w-16 h-20 ${item.pat} flex-shrink-0 border border-gold/10`}/>
-                          <div className="flex-grow flex flex-col justify-between">
-                            <div>
-                              <h4 className="font-serif text-sm font-semibold text-forest">{item.name}</h4>
-                              <p className="text-[10px] text-charcoal/50 font-sans mt-0.5">{item.fabric}</p>
-                            </div>
-                            <div className="flex items-center justify-between mt-2">
-                              <div className="flex items-center border border-gold/20 text-[11px]">
-                                <button onClick={() => updateQty(item.key,-1)} className="px-2 py-0.5 hover:text-forest">-</button>
-                                <span className="px-2 py-0.5 font-bold font-sans">{item.quantity}</span>
-                                <button onClick={() => updateQty(item.key, 1)} className="px-2 py-0.5 hover:text-forest">+</button>
-                              </div>
-                              <span className="font-sans text-xs font-bold text-charcoal">₹{(item.price * item.quantity).toLocaleString("en-IN")}</span>
-                            </div>
-                          </div>
-                          <button onClick={() => removeFromCart(item.key)} className="absolute top-2 right-2 text-charcoal/40 hover:text-maroon text-base" aria-label="Remove">×</button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {cart.length > 0 && (
-                  <div className="px-6 py-5 border-t border-gold/15">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="font-serif text-forest font-semibold">Total</span>
-                      <span className="font-sans text-lg font-bold text-forest">₹{cartTotal.toLocaleString("en-IN")}</span>
-                    </div>
-                    <p className="text-[9px] text-charcoal/40 font-sans mb-4">✦ Complimentary alterations included. Ships twice weekly from Rajasthan.</p>
-                    <button onClick={() => { triggerToast("Moving to checkout…"); setCart([]); setIsCartOpen(false); }}
-                      className="w-full bg-forest hover:bg-forest-deep text-cream py-3.5 text-[11px] font-bold uppercase tracking-widest font-sans transition-colors">
-                      Checkout
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* ══════════════════════════════════════════════════════════
-              WISHLIST DRAWER
-          ══════════════════════════════════════════════════════════ */}
-          {isWishOpen && (
-            <div className="fixed inset-0 z-50 flex justify-end bg-charcoal/60 backdrop-blur-sm fade-in">
-              <div className="absolute inset-0 cursor-pointer" onClick={() => setIsWishOpen(false)}/>
-              <div className="relative w-full max-w-md bg-cream h-full flex flex-col shadow-2xl border-l border-gold/20 z-10">
-                <div className="flex justify-between items-center px-6 py-5 border-b border-gold/15">
-                  <h3 className="font-serif text-xl text-forest font-semibold">Wishlist ({wishlist.length})</h3>
-                  <button onClick={() => setIsWishOpen(false)} className="text-charcoal/50 hover:text-forest text-2xl" aria-label="Close">×</button>
-                </div>
-                <div className="flex-1 overflow-y-auto p-6">
-                  {wishlist.length === 0 ? (
-                    <div className="py-20 text-center">
-                      <span className="text-4xl">🕊</span>
-                      <p className="font-serif italic text-forest/50 mt-4 text-sm">No dreams saved yet. Gather your motifs here.</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {PRODUCTS.filter(p => wishlist.includes(p.id)).map(item => (
-                        <div key={item.id} className="flex gap-4 border border-gold/15 p-3 bg-white relative">
-                          <div className={`w-16 h-20 ${item.pat} flex-shrink-0 border border-gold/10`}/>
-                          <div className="flex-grow flex flex-col justify-between">
-                            <div>
-                              <h4 className="font-serif text-sm font-semibold text-forest">{item.name}</h4>
-                              <p className="text-[10px] text-charcoal/50 font-sans mt-0.5">{item.fabric}</p>
-                            </div>
-                            <div className="flex items-center justify-between mt-2">
-                              <span className="font-sans text-xs font-bold text-charcoal">₹{item.price.toLocaleString("en-IN")}</span>
-                              <button onClick={() => { addToCart(item); toggleWish(item.id); }} className="text-[9px] bg-forest text-cream px-3 py-1 uppercase tracking-wider font-sans font-bold hover:bg-forest-deep">
-                                Add to Cart
-                              </button>
-                            </div>
-                          </div>
-                          <button onClick={() => toggleWish(item.id)} className="absolute top-2 right-2 text-charcoal/40 hover:text-maroon text-base" aria-label="Remove">×</button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ══════════════════════════════════════════════════════════
-              QUICK LOOK MODAL
-          ══════════════════════════════════════════════════════════ */}
-          {quickLook && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-charcoal/70 backdrop-blur-sm p-4 fade-in">
-              <div className="absolute inset-0 cursor-pointer" onClick={() => setQuickLook(null)}/>
-              <div className="relative w-full max-w-2xl bg-cream border border-gold/30 shadow-2xl z-10 flex flex-col md:flex-row overflow-hidden">
-                {/* Close */}
-                <button onClick={() => setQuickLook(null)} className="absolute top-4 right-4 text-forest hover:text-maroon text-2xl font-bold z-20 leading-none" aria-label="Close">×</button>
-                {/* Swatch */}
-                <div className={`w-full md:w-1/2 min-h-[280px] md:min-h-full ${quickLook.pat} border-b md:border-b-0 md:border-r border-gold/10 relative`}>
-                  <div className="absolute bottom-3 left-3 bg-forest/90 text-gold text-[9px] uppercase tracking-widest px-2 py-0.5 border border-gold/20">
-                    {quickLook.fabric}
-                  </div>
-                </div>
-                {/* Details */}
-                <div className="w-full md:w-1/2 p-8 flex flex-col justify-between">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest text-forest/50 font-sans font-bold">{quickLook.tag}</p>
-                    <h3 className="font-display text-2xl text-forest mt-1">{quickLook.name}</h3>
-                    <p className="font-sans text-xl font-bold text-charcoal mt-1">₹{quickLook.price.toLocaleString("en-IN")}</p>
-                    <div className="w-8 h-px bg-gold my-4"/>
-                    <p className="font-serif italic text-sm text-forest/70 leading-relaxed">"{quickLook.desc}"</p>
-                    <div className="mt-4 bg-cream-warm p-3 border border-gold/15 text-[11px] text-charcoal/70 font-sans space-y-1">
-                      <p><strong>Fabric:</strong> {quickLook.fabric}</p>
-                      <p><strong>Care:</strong> {quickLook.specs}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3 mt-6">
-                    <button onClick={() => { addToCart(quickLook); setQuickLook(null); }}
-                      className="flex-1 bg-forest hover:bg-forest-deep text-cream py-3 text-[11px] uppercase tracking-widest font-sans font-bold transition-colors">
-                      Add to Cart
-                    </button>
-                    <button onClick={() => toggleWish(quickLook.id)}
-                      className={`p-3 border transition-colors ${wishlist.includes(quickLook.id) ? "border-gold bg-gold/10 text-gold" : "border-gold/30 text-charcoal/60 hover:border-gold hover:text-gold"}`}
-                      aria-label="Wishlist">
-                      <svg className="w-4 h-4" fill={wishlist.includes(quickLook.id) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-        </div>
-      );
-    }
-
-    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-  </script>
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
 </body>
 </html>
