@@ -115,15 +115,23 @@
        COLLECTION VISUAL PATTERNS (CSS only)
     ══════════════════════════════════════════ */
 
-    /* GULNAAR — floral warmth: deep rose + blush + leafy accents */
-    /* GULNAAR — uses the real editorial photograph */
+    /* ── GULNAAR — 3 distinct editorial photographs ── */
+    /* 1. Gulnaar Anarkali — dense rose block print on crimson silk */
     .pat-gulnaar {
-      background: url('gulnaar.png') center center / cover no-repeat, linear-gradient(145deg, #6B1535 0%, #9B2A4A 100%);
+      background: url('gulnaar_rose.png') center center / cover no-repeat,
+                  linear-gradient(145deg, #6B1535 0%, #9B2A4A 100%);
     }
+    /* 2. Jasmine Mulmul Set — ivory with jasmine embroidery */
     .pat-gulnaar-b {
-      background: url('gulnaar.png') center top / cover no-repeat, linear-gradient(160deg, #5A1028 0%, #8A2040 100%);
+      background: url('gulnaar_jasmine.png') center top / cover no-repeat,
+                  linear-gradient(160deg, #E8E0D0 0%, #C8BEA8 100%);
     }
-    /* Gulnaar showcase card — full photo with overlay handled inline */
+    /* 3. Marigold Chanderi Kurta — saffron with marigold block prints */
+    .pat-gulnaar-c {
+      background: url('gulnaar_marigold.png') center center / cover no-repeat,
+                  linear-gradient(145deg, #7A5500 0%, #C09010 100%);
+    }
+    /* Gulnaar showcase card — hero collection photo */
     .gulnaar-photo-bg {
       background: url('gulnaar.png') center center / cover no-repeat;
     }
@@ -332,7 +340,7 @@ const PRODUCTS = [
   /* ── GULNAAR (Floral) ── */
   { id:1,  collection:"gulnaar",  name:"Gulnaar Anarkali",          fabric:"Kora Silk",           price:7200,  tag:"Rose Block Print",       pat:"pat-gulnaar",   desc:"Deep rose silk anarkali with hand-carved rose block prints cascading from shoulder to hem.",                specs:"Pure silk, natural rose dye, dry clean only.", popular:true  },
   { id:2,  collection:"gulnaar",  name:"Jasmine Mulmul Set",        fabric:"Pure Mulmul",         price:4600,  tag:"Jasmine Embroidered",    pat:"pat-gulnaar-b", desc:"Ivory mulmul suit with intricate jasmine chain-stitch embroidery on the yoke and cuffs.",              specs:"100% organic mulmul, hand-wash gently.", popular:false },
-  { id:3,  collection:"gulnaar",  name:"Marigold Chanderi Kurta",   fabric:"Chanderi Silk",       price:5800,  tag:"Marigold Motifs",        pat:"pat-gulnaar",   desc:"Chanderi kurta adorned with scattered marigold prints in saffron and gold, worn with straight pants.", specs:"Chanderi silk-cotton blend, hand block printed.", popular:true  },
+  { id:3,  collection:"gulnaar",  name:"Marigold Chanderi Kurta",   fabric:"Chanderi Silk",       price:5800,  tag:"Marigold Motifs",        pat:"pat-gulnaar-c", desc:"Chanderi kurta adorned with scattered marigold prints in saffron and gold, worn with straight pants.", specs:"Chanderi silk-cotton blend, hand block printed.", popular:true  },
 
   /* ── NOOR-E-PASTELS ── */
   { id:4,  collection:"noor",     name:"Blush Mul Suit",            fabric:"Mul Cotton",          price:3800,  tag:"Soft Blush Pink",        pat:"pat-noor",      desc:"The softest blush mul cotton suit, naturally dyed, with delicate self-weave texture.",                  specs:"100% mul cotton, machine-wash cold.", popular:true  },
