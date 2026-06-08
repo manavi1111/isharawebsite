@@ -116,22 +116,16 @@
     ══════════════════════════════════════════ */
 
     /* GULNAAR — floral warmth: deep rose + blush + leafy accents */
+    /* GULNAAR — uses the real editorial photograph */
     .pat-gulnaar {
-      background: linear-gradient(145deg, #6B1535 0%, #9B2A4A 35%, #C84B6E 65%, #8B1F3F 100%);
-      background-image:
-        radial-gradient(ellipse 40px 55px at 25% 30%, rgba(255,200,200,0.18) 0%, transparent 70%),
-        radial-gradient(ellipse 30px 45px at 70% 65%, rgba(255,180,180,0.14) 0%, transparent 70%),
-        radial-gradient(ellipse 25px 35px at 55% 20%, rgba(255,220,210,0.12) 0%, transparent 60%),
-        radial-gradient(circle 3px at 30% 40%, rgba(255,230,200,0.35) 0%, transparent 100%),
-        radial-gradient(circle 2px at 60% 70%, rgba(255,220,190,0.3) 0%, transparent 100%),
-        radial-gradient(circle 4px at 80% 30%, rgba(255,200,180,0.25) 0%, transparent 100%);
+      background: url('gulnaar.png') center center / cover no-repeat, linear-gradient(145deg, #6B1535 0%, #9B2A4A 100%);
     }
     .pat-gulnaar-b {
-      background: linear-gradient(160deg, #5A1028 0%, #8A2040 40%, #B0364E 70%, #7A1830 100%);
-      background-image:
-        repeating-linear-gradient(30deg, rgba(255,180,180,0.07) 0px, rgba(255,180,180,0.07) 1px, transparent 1px, transparent 24px),
-        repeating-linear-gradient(-30deg, rgba(255,180,180,0.07) 0px, rgba(255,180,180,0.07) 1px, transparent 1px, transparent 24px),
-        radial-gradient(ellipse 50px 70px at 40% 50%, rgba(200,75,110,0.3) 0%, transparent 70%);
+      background: url('gulnaar.png') center top / cover no-repeat, linear-gradient(160deg, #5A1028 0%, #8A2040 100%);
+    }
+    /* Gulnaar showcase card — full photo with overlay handled inline */
+    .gulnaar-photo-bg {
+      background: url('gulnaar.png') center center / cover no-repeat;
     }
 
     /* NOOR-E-PASTELS — soft lavender, blush, mint */
@@ -253,7 +247,7 @@ const COLLECTIONS = [
     desc: "Named for the pomegranate blossom, Gulnaar celebrates India's garden of flowers — roses stitched into hems, jasmines printed on yokes, and marigolds scattered across silk.",
     accent: "#C84B6E",
     accentLight: "#F0B8C8",
-    bgClass: "pat-gulnaar",
+    bgClass: "gulnaar-photo-bg",
     icon: "🌸",
     filterClass: "filter-gulnaar",
     cardClass: "col-card-gulnaar",
